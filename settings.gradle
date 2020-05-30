@@ -1,0 +1,2 @@
+rootProject.name='VkrMobile'
+include ':app'
