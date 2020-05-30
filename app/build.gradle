@@ -15,6 +15,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    apply plugin: 'kotlin-kapt'
 
     buildTypes {
         release {
@@ -22,7 +23,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+}
 
+kapt {
+    arguments {
+        arg("toothpick_registry_package_name", "com.vkr.vkrmobile")
+    }
 }
 
 dependencies {
@@ -34,4 +40,26 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+//    RX
+    implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
+    implementation "io.reactivex.rxjava3:rxjava:3.0.4"
+    implementation "io.reactivex.rxjava3:rxkotlin:3.0.0"
+
+//    Toothpick
+    implementation 'com.github.stephanenicolas.toothpick:ktp:3.0.2'
+    kapt 'com.github.stephanenicolas.toothpick:toothpick-compiler:3.0.2'
+
+//    Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+//    Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+
+//    Cicerone
+    implementation 'ru.terrakok.cicerone:cicerone:5.1.1'
+
+//    Google Material
+    implementation 'com.google.android.material:material:1.1.0'
 }
