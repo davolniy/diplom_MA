@@ -2,16 +2,18 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+apply from: 'signing.gradle'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.vkr.vkrmobile"
-        minSdkVersion 23
+        minSdkVersion 14
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 100000
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -23,6 +25,40 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
+                def versionCode = variant.versionCode
+                def flavorName = variant.productFlavors[0].properties['applicationId'].toString().replaceAll('\\.', '_')
+                outputFileName = "[$flavorName][v$versionCode].apk"
+            }
+        }
+
+        variant.assemble.doLast { assemble ->
+            copy {
+                from variant.outputs*.outputFile
+                into new File(rootProject.projectDir, "apk/")
+            }
+        }
+    }
+
+    flavorDimensions "default"
+
+    signingConfigs.whenObjectAdded { signing ->
+        setupSigning(signing.name)
+    }
+
+    productFlavors.whenObjectAdded { flavor ->
+        flavor.signingConfig = android.signingConfigs[flavor.name]
+    }
+
+    apply from: 'flavors.gradle'
 }
 
 kapt {
@@ -54,8 +90,14 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
+//    Moxy
+    implementation "com.github.moxy-community:moxy:2.1.2"
+    kapt "com.github.moxy-community:moxy-compiler:2.1.2"
+
 //    Retrofit
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
 
 //    Cicerone
     implementation 'ru.terrakok.cicerone:cicerone:5.1.1'

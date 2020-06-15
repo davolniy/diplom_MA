@@ -1,1 +1,29 @@
-/build
+# Build files and folders
+.gradle/
+build/
+
+captures/
+
+# Properties
+local.properties
+
+# Idea
+.idea/
+**/*.iml
+
+# fastlane specific
+fastlane/report.xml
+
+# deliver temporary files
+fastlane/Preview.html
+
+# snapshot generated screenshots
+fastlane/screenshots
+
+# scan temporary files
+fastlane/test_output
+
+# output
+apk/
+/original/release/output.json
+/certs/main/upload-keystore.jks

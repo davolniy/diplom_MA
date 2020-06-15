@@ -1,7 +1,8 @@
-package com.vkr.vkrmobile
+package com.vkr.vkrmobile.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.vkr.vkrmobile.R
 
 class MainActivity : AppCompatActivity() {
 

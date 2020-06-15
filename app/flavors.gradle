@@ -1,0 +1,17 @@
+android {
+
+    signingConfigs {
+        original {}
+    }
+
+
+    productFlavors {
+        original {
+            applicationId = 'com.vkr.vkrMobile'
+
+            versionCode 100000
+            versionName '1.0.0'
+        }
+    }
+}
+
