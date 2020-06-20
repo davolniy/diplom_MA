@@ -1,4 +1,4 @@
-package com.vkr.vkrmobile.ui.global
+package com.vkr.vkrmobile.ui.fragment.global
 
 import android.os.Bundle
 import android.view.LayoutInflater

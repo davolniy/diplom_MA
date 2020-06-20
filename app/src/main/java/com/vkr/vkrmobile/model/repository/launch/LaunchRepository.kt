@@ -4,7 +4,7 @@ import android.util.Log
 import com.google.gson.Gson
 import com.vkr.vkrmobile.BuildConfig
 import com.vkr.vkrmobile.domain.config.GlobalConfig
-import com.vkr.vkrmobile.model.data.net.response.launch.AppConfigurationInfo
+import com.vkr.vkrmobile.model.data.net.response.launch.AppConfigurationResponse
 import com.vkr.vkrmobile.model.data.net.service.LaunchService
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -32,14 +32,15 @@ class LaunchRepository @Inject constructor(
             .build()
             .create(LaunchService::class.java)
 
-    fun initialize(): Single<AppConfigurationInfo> =
+    fun initialize(): Single<AppConfigurationResponse> =
         service.getAppInit(BuildConfig.APPLICATION_ID)
             .doOnSuccess {
-                globalConfig.apiUrl = it.apiUrl
+                var apiUrl = it.apiUrl.replace("localhost:44350", "10.0.2.2:44351")
+                globalConfig.apiUrl = apiUrl
                 globalConfig.configurationParams = it.appConfigurationParams
             }
             .doOnError {
-                Log.d("TestApi", it.message)
+                Log.d("TestApi", it.message ?: "Initialize error")
             }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

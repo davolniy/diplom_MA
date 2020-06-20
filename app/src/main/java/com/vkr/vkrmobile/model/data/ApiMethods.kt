@@ -4,4 +4,8 @@ object ApiMethods {
     object Launch {
         const val AppInit = "AppConfigurations/AppInit"
     }
+    object Auth {
+        const val Authorization = "Users/Authorization"
+        const val Registration = "Users/Registration"
+    }
 }

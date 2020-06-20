@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.vkr.vkrmobile"
-        minSdkVersion 14
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 100000
         versionName "1.0.0"
@@ -81,6 +81,7 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
     implementation "io.reactivex.rxjava3:rxjava:3.0.4"
     implementation "io.reactivex.rxjava3:rxkotlin:3.0.0"
+    implementation 'com.jakewharton.rxrelay3:rxrelay:3.0.0'
 
 //    Toothpick
     implementation 'com.github.stephanenicolas.toothpick:ktp:3.0.2'

@@ -1,4 +1,4 @@
-package com.vkr.vkrmobile.ui.launch
+package com.vkr.vkrmobile.ui.fragment.launch
 
 import android.os.Bundle
 import android.view.View
@@ -6,22 +6,16 @@ import com.vkr.vkrmobile.R
 import com.vkr.vkrmobile.di.AppScopes
 import com.vkr.vkrmobile.presentation.launch.LaunchPresenter
 import com.vkr.vkrmobile.presentation.launch.LaunchView
-import com.vkr.vkrmobile.ui.global.BaseFragment
-import moxy.MvpDelegate
+import com.vkr.vkrmobile.ui.fragment.global.BaseFragment
+import kotlinx.android.synthetic.main.launch_fragment.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import toothpick.Toothpick
 
 class LaunchFragment : BaseFragment(), LaunchView {
 
-    companion object {
-        fun newInstance() = LaunchFragment().apply {
-
-        }
-    }
-
     override val layoutRes: Int
-        get() = R.layout.activity_main
+        get() = R.layout.launch_fragment
 
     @InjectPresenter
     lateinit var presenter: LaunchPresenter
@@ -33,12 +27,11 @@ class LaunchFragment : BaseFragment(), LaunchView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.window?.setBackgroundDrawableResource(R.drawable.app_logo)
+        logoImageView.setImageResource(R.drawable.app_logo)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        activity?.window?.setBackgroundDrawableResource(R.color.primaryWhite)
     }
 
     override fun onBackPressed() {

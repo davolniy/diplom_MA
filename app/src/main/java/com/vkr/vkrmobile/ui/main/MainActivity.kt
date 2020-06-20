@@ -22,11 +22,11 @@ class MainActivity : BaseActivity(), MainView {
 
     @ProvidePresenter
     fun providePresenter(): MainPresenter = Toothpick
-        .openScope(AppScopes.LAUNCH_SCOPE)
+        .openScope(AppScopes.APP_SCOPE)
         .getInstance(MainPresenter::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Toothpick.openScopes(AppScopes.LAUNCH_SCOPE).apply {
+        Toothpick.openScopes(AppScopes.LAUNCH_SCOPE, AppScopes.APP_SCOPE).apply {
             Toothpick.inject(this@MainActivity, this)
         }
 

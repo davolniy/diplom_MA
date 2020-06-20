@@ -1,4 +1,4 @@
-package com.vkr.vkrmobile.ui.main
+package com.vkr.vkrmobile.ui
 
 object Screens {
     const val LAUNCH_SCREEN = "LAUNCH_SCREEN"

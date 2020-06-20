@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">VkrMobile</string>
+
+    <!--Auth-->
+    <string name="phoneNumberHint">Введите номер телефона</string>
+    <string name="authPasswordHint">Введите пароль</string>
+    <string name="registration">Регистрация</string>
+    <string name="signIn">Войти</string>
+    <string name="authTitle">Авторизация</string>
+
+    <!--Menu-->
+    <string name="backHint">Назад</string>
+
 </resources>
