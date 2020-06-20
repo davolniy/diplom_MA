@@ -1,6 +1,7 @@
 package com.vkr.vkrmobile.di.provider
 
 import com.vkr.vkrmobile.model.data.net.interceptor.AuthInterceptor
+import com.vkr.vkrmobile.model.data.net.interceptor.ErrorResponseInterceptor
 import okhttp3.OkHttpClient
 import ru.feedback.app.model.data.auth.AuthHolder
 import java.util.concurrent.TimeUnit
@@ -16,6 +17,7 @@ class OkHttpClientProvider @Inject constructor(
         readTimeout(30, TimeUnit.SECONDS)
 
         addNetworkInterceptor(AuthInterceptor(authData))
+        addNetworkInterceptor(ErrorResponseInterceptor())
         build()
     }
 }

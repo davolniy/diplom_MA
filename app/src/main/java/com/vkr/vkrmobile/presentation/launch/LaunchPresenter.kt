@@ -3,6 +3,7 @@ package com.vkr.vkrmobile.presentation.launch
 import com.vkr.vkrmobile.di.AppScopes
 import com.vkr.vkrmobile.di.module.AppModule
 import com.vkr.vkrmobile.model.interactor.LaunchInteractor
+import com.vkr.vkrmobile.model.system.ErrorHandler
 import com.vkr.vkrmobile.model.system.SystemMessageNotifier
 import com.vkr.vkrmobile.presentation.global.BasePresenter
 import com.vkr.vkrmobile.ui.screens.AuthScreen
@@ -17,6 +18,7 @@ import javax.inject.Inject
 class LaunchPresenter @Inject constructor(
     private val launchInteractor: LaunchInteractor,
     private val router: Router,
+    private val errorHandler: ErrorHandler,
     private val systemMessageNotifier: SystemMessageNotifier
 ) : BasePresenter<LaunchView>() {
 
@@ -47,8 +49,10 @@ class LaunchPresenter @Inject constructor(
                     launchInteractor.routeToFirstAvailableScreen()
                 }
 
-            }, {
-                systemMessageNotifier.send(it.message)
+            }, { throwable ->
+                errorHandler.proceed(throwable) {
+                    systemMessageNotifier.send(it)
+                }
             })
             .untilDestroy()
     }

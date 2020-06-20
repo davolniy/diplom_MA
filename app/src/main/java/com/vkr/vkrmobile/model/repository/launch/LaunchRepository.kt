@@ -6,6 +6,7 @@ import com.vkr.vkrmobile.BuildConfig
 import com.vkr.vkrmobile.domain.config.GlobalConfig
 import com.vkr.vkrmobile.model.data.net.response.launch.AppConfigurationResponse
 import com.vkr.vkrmobile.model.data.net.service.LaunchService
+import com.vkr.vkrmobile.ui.global.fetchData
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
@@ -34,8 +35,9 @@ class LaunchRepository @Inject constructor(
 
     fun initialize(): Single<AppConfigurationResponse> =
         service.getAppInit(BuildConfig.APPLICATION_ID)
+            .fetchData()
             .doOnSuccess {
-                var apiUrl = it.apiUrl.replace("localhost:44350", "10.0.2.2:44351")
+                val apiUrl = it.apiUrl.replace("localhost:44350", "10.0.2.2:44351")
                 globalConfig.apiUrl = apiUrl
                 globalConfig.configurationParams = it.appConfigurationParams
             }

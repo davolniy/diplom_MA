@@ -9,6 +9,7 @@ import com.vkr.vkrmobile.model.data.net.service.CompanyService
 import com.vkr.vkrmobile.model.data.net.service.NewsService
 import com.vkr.vkrmobile.model.interactor.AuthInteractor
 import com.vkr.vkrmobile.model.repository.auth.AuthRepository
+import com.vkr.vkrmobile.model.system.ErrorHandler
 import retrofit2.Retrofit
 import toothpick.config.Module
 import ru.feedback.app.di.provider.service.CatalogServiceProvider
@@ -19,6 +20,9 @@ class AppModule() : Module() {
     init {
         // Network
         bind(Retrofit::class.java).toProvider(RetrofitProvider::class.java).singleton()
+
+        // Error handler
+        bind(ErrorHandler::class.java).singleton()
 
         // Auth
         bind(AuthInteractor::class.java).singleton()

@@ -4,6 +4,7 @@ import android.content.Context
 import com.jakewharton.rxrelay3.BehaviorRelay
 import com.vkr.vkrmobile.model.data.net.response.auth.AuthResponse
 import com.vkr.vkrmobile.model.data.net.service.AuthService
+import com.vkr.vkrmobile.ui.global.fetchData
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
@@ -27,16 +28,16 @@ class AuthRepository @Inject constructor(
         .observeOn(AndroidSchedulers.mainThread())
 
     fun authorize(phone: String, password: String) = service.authorization(phone, password)
-        .doOnSuccess {
-            saveAuthData(it)
-        }
+        .fetchData()
+        .doOnSuccess { saveAuthData(it) }
         .doOnError { }
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
 
     fun registration(phone: String, password: String) = service.registration(phone, password)
+        .fetchData()
         .doOnSuccess { saveAuthData(it) }
-        .doOnError {  }
+        .doOnError { }
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
 

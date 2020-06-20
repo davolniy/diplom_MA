@@ -5,17 +5,18 @@ import com.vkr.vkrmobile.model.data.net.response.auth.AuthResponse
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
+import ru.feedback.app.model.data.net.ApiResponse
 
 interface AuthService {
     @GET(ApiMethods.Auth.Authorization)
     fun authorization(
         @Query("phoneNumber") packageName: String,
         @Query("password") password: String
-    ): Single<AuthResponse>
+    ): Single<ApiResponse<AuthResponse>>
 
     @GET(ApiMethods.Auth.Registration)
     fun registration(
         @Query("phoneNumber") packageName: String,
         @Query("password") password: String
-    ): Single<AuthResponse>
+    ): Single<ApiResponse<AuthResponse>>
 }
