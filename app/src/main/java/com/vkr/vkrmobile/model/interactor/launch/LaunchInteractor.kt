@@ -1,7 +1,8 @@
-package com.vkr.vkrmobile.model.interactor
+package com.vkr.vkrmobile.model.interactor.launch
 
 import com.vkr.vkrmobile.domain.config.GlobalConfig
 import com.vkr.vkrmobile.model.data.net.response.launch.AppConfigurationResponse
+import com.vkr.vkrmobile.model.navigation.AppRouter
 import com.vkr.vkrmobile.model.repository.launch.LaunchRepository
 import com.vkr.vkrmobile.ui.screens.AuthScreen
 import com.vkr.vkrmobile.ui.screens.CompaniesScreen
@@ -13,7 +14,7 @@ import javax.inject.Inject
 class LaunchInteractor @Inject constructor(
     private val launchRepository: LaunchRepository,
     private val globalConfig: GlobalConfig,
-    private val router: Router
+    private val router: AppRouter
 ) {
 
     fun initialize(): Single<AppConfigurationResponse> =

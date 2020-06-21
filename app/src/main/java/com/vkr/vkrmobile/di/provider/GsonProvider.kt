@@ -1,4 +1,4 @@
-package ru.feedback.app.di.provider.server
+package com.vkr.vkrmobile.di.provider
 
 
 import com.google.gson.Gson

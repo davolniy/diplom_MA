@@ -1,4 +1,4 @@
-package ru.feedback.app.di.provider.service
+package com.vkr.vkrmobile.di.provider.service
 
 import com.vkr.vkrmobile.model.data.net.service.NewsService
 import retrofit2.Retrofit

@@ -3,6 +3,7 @@ package com.vkr.vkrmobile.ui.fragment.auth
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.vkr.vkrmobile.R
 import com.vkr.vkrmobile.di.AppScopes
 import com.vkr.vkrmobile.domain.config.GlobalConfig
@@ -30,7 +31,6 @@ class AuthFragment : BaseFragment(), AuthView {
     fun providePresenter(): AuthPresenter = Toothpick
         .openScopes(AppScopes.MAIN_ACTIVITY_SCOPE, AppScopes.AUTH_SCOPE)
         .getInstance(AuthPresenter::class.java)
-        .also { Toothpick.closeScope(AppScopes.AUTH_SCOPE) }
 
     override fun onBackPressed() {
         presenter.onBackPressed()
@@ -53,7 +53,7 @@ class AuthFragment : BaseFragment(), AuthView {
             toolbar.run {
                 visibility = View.VISIBLE
                 val iconDrawable = resources.getDrawable(R.drawable.ic_arrow_left, context?.theme)
-                iconDrawable.setTint(globalConfig.accentColor)
+                iconDrawable.setTint(ContextCompat.getColor(context, R.color.primaryWhite))
                 navigationIcon = iconDrawable
                 setNavigationOnClickListener {
                     presenter.onBackPressed()

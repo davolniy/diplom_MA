@@ -11,4 +11,6 @@
     <!--Menu-->
     <string name="backHint">Назад</string>
 
+    <!--Toolbar-->
+    <string name="toolbarNewsTitle">Новости</string>
 </resources>

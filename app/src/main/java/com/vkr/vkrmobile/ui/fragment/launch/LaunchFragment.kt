@@ -27,7 +27,7 @@ class LaunchFragment : BaseFragment(), LaunchView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        logoImageView.setImageResource(R.drawable.app_logo)
+        logoImageView.setImageResource(R.drawable.logo)
     }
 
     override fun onDestroyView() {

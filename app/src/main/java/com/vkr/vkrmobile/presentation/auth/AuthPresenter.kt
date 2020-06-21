@@ -1,7 +1,8 @@
 package com.vkr.vkrmobile.presentation.auth
 
-import com.vkr.vkrmobile.model.interactor.AuthInteractor
-import com.vkr.vkrmobile.model.interactor.LaunchInteractor
+import com.vkr.vkrmobile.model.interactor.auth.AuthInteractor
+import com.vkr.vkrmobile.model.interactor.launch.LaunchInteractor
+import com.vkr.vkrmobile.model.navigation.AppRouter
 import com.vkr.vkrmobile.model.system.ErrorHandler
 import com.vkr.vkrmobile.model.system.SystemMessageNotifier
 import com.vkr.vkrmobile.presentation.global.BasePresenter
@@ -13,7 +14,7 @@ import javax.inject.Inject
 class AuthPresenter @Inject constructor(
     private val launchInteractor: LaunchInteractor,
     private val authInteractor: AuthInteractor,
-    private val router: Router,
+    private val router: AppRouter,
     private val errorHandler: ErrorHandler,
     private val systemMessageNotifier: SystemMessageNotifier
 ) : BasePresenter<AuthView>() {

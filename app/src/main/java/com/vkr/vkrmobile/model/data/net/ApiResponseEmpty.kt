@@ -1,4 +1,4 @@
-package ru.feedback.app.model.data.net
+package com.vkr.vkrmobile.model.data.net
 
 import com.google.gson.annotations.SerializedName
 

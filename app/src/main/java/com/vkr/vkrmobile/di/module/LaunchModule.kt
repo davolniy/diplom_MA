@@ -4,21 +4,21 @@ import android.content.Context
 import com.google.gson.Gson
 import com.vkr.vkrmobile.di.ApiPath
 import com.vkr.vkrmobile.di.provider.ApiPathProvider
+import com.vkr.vkrmobile.di.provider.GsonProvider
 import com.vkr.vkrmobile.di.provider.OkHttpClientProvider
-import com.vkr.vkrmobile.di.provider.RetrofitProvider
 import com.vkr.vkrmobile.domain.config.AuthConfig
 import com.vkr.vkrmobile.domain.config.GlobalConfig
-import ru.feedback.app.di.provider.server.GsonProvider
-import ru.terrakok.cicerone.Cicerone
-import ru.terrakok.cicerone.NavigatorHolder
+import com.vkr.vkrmobile.domain.config.MenuScreenConfig
+import com.vkr.vkrmobile.model.data.auth.AuthHolder
+import com.vkr.vkrmobile.model.data.auth.CurrentUserHolder
 import toothpick.config.Module
-import com.vkr.vkrmobile.model.interactor.LaunchInteractor
+import com.vkr.vkrmobile.model.interactor.launch.LaunchInteractor
+import com.vkr.vkrmobile.model.navigation.AppRouter
 import com.vkr.vkrmobile.model.system.SystemMessageNotifier
 import okhttp3.OkHttpClient
-import ru.feedback.app.model.data.auth.AuthHolder
-import ru.feedback.app.model.data.auth.CurrentUserHolder
+import ru.terrakok.cicerone.Cicerone
+import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
-import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
 class LaunchModule(context: Context) : Module() {
     init {
@@ -34,8 +34,8 @@ class LaunchModule(context: Context) : Module() {
         bind(String::class.java).withName(ApiPath::class.java).toProvider(ApiPathProvider::class.java).singleton()
 
         // Routing
-        val cicerone = Cicerone.create()
-        bind(Router::class.java).toInstance(cicerone.router)
+        val cicerone = Cicerone.create(AppRouter())
+        bind(AppRouter::class.java).toInstance(cicerone.router)
         bind(NavigatorHolder::class.java).toInstance(cicerone.navigatorHolder)
 
         // Launch

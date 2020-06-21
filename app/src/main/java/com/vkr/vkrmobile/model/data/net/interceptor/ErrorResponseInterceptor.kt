@@ -1,8 +1,8 @@
 package com.vkr.vkrmobile.model.data.net.interceptor
 
+import com.vkr.vkrmobile.model.data.net.ServerError
 import okhttp3.Interceptor
 import okhttp3.Response
-import ru.feedback.app.model.data.net.ServerError
 
 class ErrorResponseInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {

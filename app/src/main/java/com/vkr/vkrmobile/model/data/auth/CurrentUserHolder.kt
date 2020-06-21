@@ -1,4 +1,4 @@
-package ru.feedback.app.model.data.auth
+package com.vkr.vkrmobile.model.data.auth
 
 interface CurrentUserHolder {
     var userId: Long

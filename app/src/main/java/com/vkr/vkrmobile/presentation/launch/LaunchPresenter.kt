@@ -2,13 +2,12 @@ package com.vkr.vkrmobile.presentation.launch
 
 import com.vkr.vkrmobile.di.AppScopes
 import com.vkr.vkrmobile.di.module.AppModule
-import com.vkr.vkrmobile.model.interactor.LaunchInteractor
+import com.vkr.vkrmobile.model.interactor.launch.LaunchInteractor
+import com.vkr.vkrmobile.model.navigation.AppRouter
 import com.vkr.vkrmobile.model.system.ErrorHandler
 import com.vkr.vkrmobile.model.system.SystemMessageNotifier
 import com.vkr.vkrmobile.presentation.global.BasePresenter
 import com.vkr.vkrmobile.ui.screens.AuthScreen
-import com.vkr.vkrmobile.ui.screens.HomeScreen
-import com.vkr.vkrmobile.ui.screens.NewsScreen
 import moxy.InjectViewState
 import ru.terrakok.cicerone.Router
 import toothpick.Toothpick
@@ -17,7 +16,7 @@ import javax.inject.Inject
 @InjectViewState
 class LaunchPresenter @Inject constructor(
     private val launchInteractor: LaunchInteractor,
-    private val router: Router,
+    private val router: AppRouter,
     private val errorHandler: ErrorHandler,
     private val systemMessageNotifier: SystemMessageNotifier
 ) : BasePresenter<LaunchView>() {

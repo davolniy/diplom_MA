@@ -1,28 +1,46 @@
 package com.vkr.vkrmobile.ui.main
 
+import android.content.Intent
 import android.os.Bundle
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.vkr.vkrmobile.R
 import com.vkr.vkrmobile.di.AppScopes
+import com.vkr.vkrmobile.domain.config.GlobalConfig
+import com.vkr.vkrmobile.domain.config.MenuScreenConfig
 import com.vkr.vkrmobile.presentation.main.MainPresenter
 import com.vkr.vkrmobile.presentation.main.MainView
+import com.vkr.vkrmobile.ui.fragment.global.BaseFragment
+import com.vkr.vkrmobile.ui.fragment.profile.ProfileMenuFragment
 import com.vkr.vkrmobile.ui.global.BaseActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
-import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import toothpick.Toothpick
+import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainView {
 
+    companion object {
+        const val LAUNCH_REQUEST_CODE = 1
+    }
+
     override val layoutRes = R.layout.activity_main
     override val navigator = SupportAppNavigator(this, R.id.mainContainer)
+
+    private val currentFragment
+        get() = supportFragmentManager.findFragmentById(R.id.mainContainer)
+
+    @Inject
+    lateinit var globalConfig: GlobalConfig
 
     @InjectPresenter
     lateinit var presenter: MainPresenter
 
     @ProvidePresenter
     fun providePresenter(): MainPresenter = Toothpick
-        .openScope(AppScopes.APP_SCOPE)
+        .openScopes(AppScopes.LAUNCH_SCOPE, AppScopes.APP_SCOPE)
         .getInstance(MainPresenter::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,11 +53,6 @@ class MainActivity : BaseActivity(), MainView {
         presenter.initialize()
     }
 
-    override fun onResumeFragments() {
-        super.onResumeFragments()
-//        menuStateDisposable = menuController.state.subscribe { openNavDrawer(it) }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         if (isFinishing)
@@ -47,7 +60,47 @@ class MainActivity : BaseActivity(), MainView {
     }
 
     override fun onBackPressed() {
-        presenter.onBackPressed()
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            openNavDrawer(false)
+        } else {
+            val currentFragment = currentFragment
+            when (currentFragment) {
+                is BaseFragment -> currentFragment.onBackPressed()
+                else -> presenter.onBackPressed()
+            }
+        }
     }
 
+    override fun initDrawer() {
+        if (globalConfig.isDrawerEnabled) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.drawerContainer, ProfileMenuFragment())
+                .commitNow()
+        } else {
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        }
+        enableNavDrawer(globalConfig.isDrawerEnabled)
+    }
+
+    private fun openNavDrawer(open: Boolean) {
+        if (open) drawerLayout.openDrawer(GravityCompat.START)
+        else drawerLayout.closeDrawer(GravityCompat.START)
+    }
+
+    private fun enableNavDrawer(enable: Boolean) {
+        drawerLayout.setDrawerLockMode(
+            if (enable) DrawerLayout.LOCK_MODE_UNLOCKED
+            else DrawerLayout.LOCK_MODE_LOCKED_CLOSED,
+            GravityCompat.START
+        )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == LAUNCH_REQUEST_CODE) {
+
+        }
+    }
 }

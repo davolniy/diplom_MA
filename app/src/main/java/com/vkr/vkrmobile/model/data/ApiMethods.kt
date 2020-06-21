@@ -8,4 +8,7 @@ object ApiMethods {
         const val Authorization = "Users/Authorization"
         const val Registration = "Users/Registration"
     }
+    object News {
+        const val GetAllNews = "News/"
+    }
 }

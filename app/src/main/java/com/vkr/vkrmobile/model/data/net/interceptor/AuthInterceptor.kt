@@ -1,8 +1,8 @@
 package com.vkr.vkrmobile.model.data.net.interceptor
 
+import com.vkr.vkrmobile.model.data.auth.AuthHolder
 import okhttp3.Interceptor
 import okhttp3.Response
-import ru.feedback.app.model.data.auth.AuthHolder
 
 class AuthInterceptor constructor(
     private val authHolder: AuthHolder

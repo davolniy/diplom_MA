@@ -10,4 +10,6 @@ class GlobalConfig @Inject constructor(
     var configurationParams: AppConfigurationParams = AppConfigurationParams()
 
     val accentColor get() = Color.parseColor(configurationParams.accentColor)
+
+    val isDrawerEnabled = configurationParams.menuViewMode == "Top"
 }

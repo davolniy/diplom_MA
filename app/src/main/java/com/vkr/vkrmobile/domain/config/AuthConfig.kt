@@ -1,8 +1,8 @@
 package com.vkr.vkrmobile.domain.config
 
 import android.content.Context
-import ru.feedback.app.model.data.auth.AuthHolder
-import ru.feedback.app.model.data.auth.CurrentUserHolder
+import com.vkr.vkrmobile.model.data.auth.AuthHolder
+import com.vkr.vkrmobile.model.data.auth.CurrentUserHolder
 import javax.inject.Inject
 
 class AuthConfig @Inject constructor(

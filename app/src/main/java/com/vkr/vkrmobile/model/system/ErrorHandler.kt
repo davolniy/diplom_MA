@@ -1,7 +1,7 @@
 package com.vkr.vkrmobile.model.system
 
-import ru.feedback.app.model.data.net.ApiError
-import ru.feedback.app.model.data.net.ServerError
+import com.vkr.vkrmobile.model.data.net.ApiError
+import com.vkr.vkrmobile.model.data.net.ServerError
 import java.io.IOException
 import javax.inject.Inject
 

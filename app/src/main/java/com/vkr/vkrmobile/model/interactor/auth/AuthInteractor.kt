@@ -1,19 +1,19 @@
-package com.vkr.vkrmobile.model.interactor
+package com.vkr.vkrmobile.model.interactor.auth
 
 import com.vkr.vkrmobile.domain.config.GlobalConfig
+import com.vkr.vkrmobile.model.data.auth.AuthState
+import com.vkr.vkrmobile.model.data.auth.Logout
+import com.vkr.vkrmobile.model.data.auth.SignedIn
+import com.vkr.vkrmobile.model.navigation.AppRouter
 import com.vkr.vkrmobile.model.repository.auth.AuthRepository
 import com.vkr.vkrmobile.ui.screens.AuthScreen
 import io.reactivex.rxjava3.core.Observable
-import ru.feedback.app.model.data.auth.AuthState
-import ru.feedback.app.model.data.auth.Logout
-import ru.feedback.app.model.data.auth.SignedIn
-import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class AuthInteractor @Inject constructor(
     private val authRepository: AuthRepository,
     private val globalConfig: GlobalConfig,
-    private val router: Router
+    private val router: AppRouter
 ) {
     val isSignedIn get() = authRepository.isSignedIn
 
@@ -30,6 +30,18 @@ class AuthInteractor @Inject constructor(
     fun registration(phoneNumber: String, password: String) = authRepository.registration(phoneNumber, password)
 
     fun authorize(phoneNumber: String, password: String) = authRepository.authorize(phoneNumber, password)
+
+    fun logout() {
+        authRepository.logout()
+
+        if (authRepository.isSignedIn) {
+            authRepository.clearAuthData()
+        }
+
+        if (isAuthRequired) {
+            router.newRootScreen(AuthScreen())
+        }
+    }
 
     val authState: Observable<AuthState> = authRepository.authChangesObservable.map { isSignedIn ->
         when {

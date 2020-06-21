@@ -2,6 +2,8 @@ package com.vkr.vkrmobile.model.repository.auth
 
 import android.content.Context
 import com.jakewharton.rxrelay3.BehaviorRelay
+import com.vkr.vkrmobile.model.data.auth.AuthHolder
+import com.vkr.vkrmobile.model.data.auth.CurrentUserHolder
 import com.vkr.vkrmobile.model.data.net.response.auth.AuthResponse
 import com.vkr.vkrmobile.model.data.net.service.AuthService
 import com.vkr.vkrmobile.ui.global.fetchData
@@ -9,8 +11,6 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import ru.feedback.app.model.data.auth.AuthHolder
-import ru.feedback.app.model.data.auth.CurrentUserHolder
 import javax.inject.Inject
 
 class AuthRepository @Inject constructor(

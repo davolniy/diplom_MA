@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance" parent="AppTheme"/>
+
+    <style name="TextAppearance.BlackRegular" parent="TextAppearance">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/primaryBlack</item>
+    </style>
+
+    <style name="TextAppearance.BlackHeader" parent="TextAppearance">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/primaryBlack</item>
+    </style>
+
+    <style name="TextAppearance.WhiteHeader" parent="TextAppearance">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/primaryWhite</item>
+    </style>
+
+    <style name="TextAppearance.WhiteRegular" parent="TextAppearance">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/primaryWhite</item>
+    </style>
+</resources>
