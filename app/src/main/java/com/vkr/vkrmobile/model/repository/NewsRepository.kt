@@ -1,4 +1,4 @@
-package com.vkr.vkrmobile.model.repository.news
+package com.vkr.vkrmobile.model.repository
 
 import com.vkr.vkrmobile.model.data.net.service.NewsService
 import com.vkr.vkrmobile.ui.global.fetchData

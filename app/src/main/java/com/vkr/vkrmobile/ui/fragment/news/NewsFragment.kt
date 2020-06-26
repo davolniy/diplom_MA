@@ -1,6 +1,7 @@
 package com.vkr.vkrmobile.ui.fragment.news
 
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -12,14 +13,13 @@ import com.vkr.vkrmobile.model.data.net.response.news.NewsResponse
 import com.vkr.vkrmobile.presentation.news.NewsPresenter
 import com.vkr.vkrmobile.presentation.news.NewsView
 import com.vkr.vkrmobile.ui.fragment.global.BaseFragment
-import com.vkr.vkrmobile.ui.global.list.news.CardsNewsAdapterDelegate
-import com.vkr.vkrmobile.ui.global.list.news.ExpandableCardsNewsAdapterDelegate
-import com.vkr.vkrmobile.ui.global.list.news.StaggeredCardsNewsAdapterDelegate
+import com.vkr.vkrmobile.ui.global.list.news.*
 import kotlinx.android.synthetic.main.news_fragment.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import toothpick.Toothpick
 import javax.inject.Inject
+
 
 class NewsFragment : BaseFragment(), NewsView {
 
@@ -65,14 +65,29 @@ class NewsFragment : BaseFragment(), NewsView {
             adapter = this@NewsFragment.adapter
         }
 
+        if (globalConfig.configurationParams.menuViewMode == "Top") {
+            navigationToolBarButton.run {
+                visibility = View.VISIBLE
+                setOnClickListener { presenter.onNavigationClick() }
+            }
+        }
+
+        toolbarLayout.run {
+            setBackgroundColor(globalConfig.accentColor)
+        }
+
         newsSwipeRefreshLayout.setOnRefreshListener {
             adapter.clearData()
             presenter.refresh()
         }
     }
 
-    override fun setData(data: List<NewsResponse>) {
-        adapter.setData(data)
+    override fun showProgress(show: Boolean) {
+        newsSwipeRefreshLayout.isRefreshing = show
+    }
+
+    override fun setData(data: List<NewsResponse>, page: Int, pageSize: Int) {
+        adapter.setData(data, page, pageSize)
     }
 
     override fun clearData() {
@@ -80,30 +95,39 @@ class NewsFragment : BaseFragment(), NewsView {
     }
 
     private inner class NewsAdapter() : ListDelegationAdapter<MutableList<NewsResponse>>() {
-        private var page = 1
+        private var page: Int = 1
 
         init {
             items = mutableListOf()
             delegatesManager
-                .addDelegate(CardsNewsAdapterDelegate(globalConfig.configurationParams.menuViewMode))
-                .addDelegate(StaggeredCardsNewsAdapterDelegate(globalConfig.configurationParams.menuViewMode))
-                .addDelegate(ExpandableCardsNewsAdapterDelegate(globalConfig.configurationParams.menuViewMode))
+                .addDelegate(CardsNewsAdapterDelegate(globalConfig.configurationParams.newsViewMode))
+                .addDelegate(StaggeredCardsNewsAdapterDelegate(globalConfig.configurationParams.newsViewMode))
+                .addDelegate(ExpandableCardsNewsAdapterDelegate(globalConfig.configurationParams.newsViewMode))
+            setHasStableIds(true)
         }
 
-        fun setData(data: List<NewsResponse>) {
+        fun setData(data: List<NewsResponse>, page: Int, pageSize: Int) {
             items.addAll(data)
-            notifyDataSetChanged()
-            page++
+            notifyItemRangeChanged((page - 1) * pageSize, page * pageSize)
+            this.page++
         }
 
         fun clearData() {
             items.clear()
             notifyDataSetChanged()
-            page = 0
+            page = 1
         }
 
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            super.onBindViewHolder(holder, position)
+        override fun getItemId(position: Int): Long {
+            return items.get(position).id
+        }
+
+        override fun onBindViewHolder(
+            holder: RecyclerView.ViewHolder,
+            position: Int,
+            payloads: MutableList<Any?>
+        ) {
+            super.onBindViewHolder(holder, position, payloads)
 
             if (position == items.size - NewsPresenter.NEWS_PAGE_SIZE / 3) {
                 presenter.loadPage(page)

@@ -8,13 +8,13 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface AuthService {
-    @GET(ApiMethods.Auth.Authorization)
+    @GET(ApiMethods.Users.Authorization)
     fun authorization(
         @Query("phoneNumber") packageName: String,
         @Query("password") password: String
     ): Single<ApiResponse<AuthResponse>>
 
-    @GET(ApiMethods.Auth.Registration)
+    @GET(ApiMethods.Users.Registration)
     fun registration(
         @Query("phoneNumber") packageName: String,
         @Query("password") password: String

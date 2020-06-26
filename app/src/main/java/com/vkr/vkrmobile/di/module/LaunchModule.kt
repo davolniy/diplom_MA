@@ -8,17 +8,16 @@ import com.vkr.vkrmobile.di.provider.GsonProvider
 import com.vkr.vkrmobile.di.provider.OkHttpClientProvider
 import com.vkr.vkrmobile.domain.config.AuthConfig
 import com.vkr.vkrmobile.domain.config.GlobalConfig
-import com.vkr.vkrmobile.domain.config.MenuScreenConfig
 import com.vkr.vkrmobile.model.data.auth.AuthHolder
 import com.vkr.vkrmobile.model.data.auth.CurrentUserHolder
 import toothpick.config.Module
-import com.vkr.vkrmobile.model.interactor.launch.LaunchInteractor
+import com.vkr.vkrmobile.model.interactor.LaunchInteractor
 import com.vkr.vkrmobile.model.navigation.AppRouter
 import com.vkr.vkrmobile.model.system.SystemMessageNotifier
+import com.vkr.vkrmobile.presentation.global.GlobalMenuController
 import okhttp3.OkHttpClient
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.Router
 
 class LaunchModule(context: Context) : Module() {
     init {
@@ -47,5 +46,8 @@ class LaunchModule(context: Context) : Module() {
 
         // Message notification
         bind(SystemMessageNotifier::class.java).toInstance(SystemMessageNotifier())
+
+        // Main screen
+        bind(GlobalMenuController::class.java).toInstance(GlobalMenuController())
     }
 }

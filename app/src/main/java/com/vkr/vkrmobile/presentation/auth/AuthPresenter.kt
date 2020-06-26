@@ -1,13 +1,12 @@
 package com.vkr.vkrmobile.presentation.auth
 
-import com.vkr.vkrmobile.model.interactor.auth.AuthInteractor
-import com.vkr.vkrmobile.model.interactor.launch.LaunchInteractor
+import com.vkr.vkrmobile.model.interactor.AuthInteractor
+import com.vkr.vkrmobile.model.interactor.LaunchInteractor
 import com.vkr.vkrmobile.model.navigation.AppRouter
 import com.vkr.vkrmobile.model.system.ErrorHandler
 import com.vkr.vkrmobile.model.system.SystemMessageNotifier
 import com.vkr.vkrmobile.presentation.global.BasePresenter
 import moxy.InjectViewState
-import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 @InjectViewState
@@ -25,7 +24,7 @@ class AuthPresenter @Inject constructor(
     fun registration(phoneNumber: String, password: String) =
         authInteractor.registration(phoneNumber, password)
             .subscribe({
-                launchInteractor.routeToFirstAvailableScreen(true)
+                launchInteractor.routeToFirstAvailableScreen()
             }, { throwable ->
                 errorHandler.proceed(throwable) {
                     systemMessageNotifier.send(it)
@@ -37,7 +36,7 @@ class AuthPresenter @Inject constructor(
     fun authorization(phoneNumber: String, password: String) =
         authInteractor.authorize(phoneNumber, password)
             .subscribe({
-                launchInteractor.routeToFirstAvailableScreen(true)
+                launchInteractor.routeToFirstAvailableScreen()
             }, { throwable ->
                 errorHandler.proceed(throwable) {
                     systemMessageNotifier.send(it)

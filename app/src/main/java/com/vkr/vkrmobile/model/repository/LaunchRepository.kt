@@ -1,4 +1,4 @@
-package com.vkr.vkrmobile.model.repository.launch
+package com.vkr.vkrmobile.model.repository
 
 import android.util.Log
 import com.google.gson.Gson

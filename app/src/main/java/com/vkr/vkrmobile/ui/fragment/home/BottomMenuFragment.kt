@@ -1,8 +1,10 @@
 package com.vkr.vkrmobile.ui.fragment.home
 
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.vkr.vkrmobile.R
 import com.vkr.vkrmobile.di.AppScopes
@@ -54,6 +56,10 @@ class BottomMenuFragment : BaseDialogFragment(), BottomMenuView {
         super.onCreate(savedInstanceState)
     }
 
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return BottomSheetDialog(requireContext(), theme)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -74,6 +80,7 @@ class BottomMenuFragment : BaseDialogFragment(), BottomMenuView {
             items = mutableListOf()
             delegatesManager.addDelegate(MenuRowAdapterDelegate {
                 presenter.onMenuRowClick(it)
+                dismiss()
             })
         }
 

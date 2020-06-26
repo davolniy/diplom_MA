@@ -2,20 +2,21 @@ package com.vkr.vkrmobile.presentation.launch
 
 import com.vkr.vkrmobile.di.AppScopes
 import com.vkr.vkrmobile.di.module.AppModule
-import com.vkr.vkrmobile.model.interactor.launch.LaunchInteractor
+import com.vkr.vkrmobile.domain.config.GlobalConfig
+import com.vkr.vkrmobile.model.interactor.LaunchInteractor
 import com.vkr.vkrmobile.model.navigation.AppRouter
+import com.vkr.vkrmobile.model.navigation.RequestCodes
 import com.vkr.vkrmobile.model.system.ErrorHandler
 import com.vkr.vkrmobile.model.system.SystemMessageNotifier
 import com.vkr.vkrmobile.presentation.global.BasePresenter
-import com.vkr.vkrmobile.ui.screens.AuthScreen
 import moxy.InjectViewState
-import ru.terrakok.cicerone.Router
 import toothpick.Toothpick
 import javax.inject.Inject
 
 @InjectViewState
 class LaunchPresenter @Inject constructor(
     private val launchInteractor: LaunchInteractor,
+    private val globalConfig: GlobalConfig,
     private val router: AppRouter,
     private val errorHandler: ErrorHandler,
     private val systemMessageNotifier: SystemMessageNotifier
@@ -40,13 +41,8 @@ class LaunchPresenter @Inject constructor(
                 Toothpick
                     .openScopes(AppScopes.APP_SCOPE, AppScopes.MAIN_ACTIVITY_SCOPE)
 
-                val params = it.appConfigurationParams
-
-                if (params.authRequired) {
-                    router.newRootScreen(AuthScreen())
-                } else {
-                    launchInteractor.routeToFirstAvailableScreen()
-                }
+                router.sendResult(RequestCodes.INIT, true)
+                launchInteractor.routeToFirstAvailableScreen()
 
             }, { throwable ->
                 errorHandler.proceed(throwable) {

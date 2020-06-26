@@ -3,6 +3,7 @@ package com.vkr.vkrmobile.ui.global
 import android.R
 import android.content.Context
 import android.content.res.ColorStateList
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -10,9 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.LayoutRes
+import androidx.annotation.Px
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.BitmapImageViewTarget
+import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.vkr.vkrmobile.model.data.net.ApiError
@@ -75,32 +79,39 @@ fun BottomNavigationView.setColorView(accentColor: Int){
 
 fun ImageView.loadImage(
     url: String?,
-    placeholderDrawable: Drawable? = null,
-    resourceReadyCallback: (Bitmap?) -> Unit = { }
+    placeholderDrawable: Drawable? = null
 ) {
+    if (url.isNullOrEmpty()) {
+        this.setImageBitmap(null)
+        this.visibility = View.GONE
+        return
+    }
+
+    this.visibility = View.VISIBLE
+
+    val options = RequestOptions()
+        .placeholder(placeholderDrawable)
+        .error(placeholderDrawable)
+
     Glide.with(context)
-        .asBitmap()
         .load(url)
-        .into(object : BitmapImageViewTarget(this) {
-            override fun onLoadStarted(placeholder: Drawable?) {
-                super.onLoadStarted(placeholder)
-                if (placeholderDrawable != null) {
-                    setImageDrawable(placeholderDrawable)
-                }
-            }
-
-            override fun onLoadFailed(errorDrawable: Drawable?) {
-                super.onLoadFailed(errorDrawable)
-                if (placeholderDrawable != null) {
-                    setImageDrawable(placeholderDrawable)
-                }
-            }
-
-            override fun setResource(resource: Bitmap?) {
-                if (resource != null) {
-                    setImageBitmap(resource)
-                }
-                resourceReadyCallback.invoke(resource)
-            }
-        })
+        .apply(options)
+        .into(this)
 }
+
+inline fun View.updatePadding(
+    @Px left: Int = paddingLeft,
+    @Px top: Int = paddingTop,
+    @Px right: Int = paddingRight,
+    @Px bottom: Int = paddingBottom
+) {
+    setPadding(left, top, right, bottom)
+}
+
+inline fun View.setPadding(@Px size: Int) {
+    setPadding(size, size, size, size)
+}
+
+val Int.dp get() = this / Resources.getSystem().displayMetrics.density
+
+val Float.dp get() = this / Resources.getSystem().displayMetrics.density

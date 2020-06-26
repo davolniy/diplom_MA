@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
 
+        app:cardElevation="5dp"
         app:cardCornerRadius="8dp">
 
         <LinearLayout
@@ -41,7 +44,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/primaryBlack60"
+                    android:background="@color/primaryBlack99"
                     android:padding="16dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
@@ -61,7 +64,7 @@
 
                         tools:text="Название новости" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/expandIcon"
                         android:layout_width="32dp"
                         android:layout_height="32dp"

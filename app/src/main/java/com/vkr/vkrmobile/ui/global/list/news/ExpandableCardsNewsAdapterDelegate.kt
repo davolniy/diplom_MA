@@ -9,9 +9,6 @@ import com.vkr.vkrmobile.R
 import com.vkr.vkrmobile.model.data.net.response.news.NewsResponse
 import com.vkr.vkrmobile.ui.global.inflate
 import com.vkr.vkrmobile.ui.global.loadImage
-import kotlinx.android.synthetic.main.news_card_item.view.newsLogo
-import kotlinx.android.synthetic.main.news_card_item.view.newsText
-import kotlinx.android.synthetic.main.news_card_item.view.newsTitle
 import kotlinx.android.synthetic.main.news_expandable_card_item.view.*
 
 class ExpandableCardsNewsAdapterDelegate(
@@ -42,16 +39,16 @@ class ExpandableCardsNewsAdapterDelegate(
                     url = item.logo,
                     placeholderDrawable = ContextCompat.getDrawable(context, R.drawable.ic_placeholder)
                 )
-                newsTitle.text = item.title
+                newsTitle.text = item.name
                 newsText.text = item.text
 
                 expandIcon.setOnClickListener {
                     if (newsText.visibility == View.GONE) {
                         expandIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_arrow_top))
-                        newsText.visibility == View.VISIBLE
+                        newsText.visibility = View.VISIBLE
                     } else {
                         expandIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_arrow_bottom))
-                        newsText.visibility == View.GONE
+                        newsText.visibility = View.GONE
                     }
                 }
             }

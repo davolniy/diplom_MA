@@ -133,19 +133,20 @@ class MenuScreenConfig @Inject constructor(
             val menuItems: MutableCollection<CustomMenuItem> = mutableListOf()
             val plusItems: MutableCollection<CustomMenuItem> = mutableListOf()
 
-            if (menuMode == "Bottom" && allMenuItems.size > 5) {
-                menuItems.addAll(allMenuItems.subList(0, 2))
+            val menu = allMenuItems
+
+            if (menuMode == "Bottom" && menu.size > 5) {
+                menuItems.addAll(menu.subList(0, 2))
                 menuItems.add(
                     CustomMenuItem(
                         title = "",
-                        icon = null,
-                        screen = BottomMenuScreen(true)
+                        icon = null
                     )
                 )
-                menuItems.addAll(allMenuItems.subList(2, 4))
-                plusItems.addAll(allMenuItems.subList(4, allMenuItems.size))
+                menuItems.addAll(menu.subList(2, 4))
+                plusItems.addAll(menu.subList(4, menu.size))
             } else {
-                menuItems.addAll(allMenuItems)
+                menuItems.addAll(menu)
             }
 
             return CustomMenu(menuItems = menuItems.toList(), plusMenuItems = plusItems.toList())

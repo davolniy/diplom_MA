@@ -1,18 +1,18 @@
 package com.vkr.vkrmobile.presentation.profile
 
-import com.vkr.vkrmobile.model.interactor.auth.AuthInteractor
+import com.vkr.vkrmobile.model.interactor.AuthInteractor
 import com.vkr.vkrmobile.model.navigation.AppRouter
 import com.vkr.vkrmobile.presentation.global.BasePresenter
-import com.vkr.vkrmobile.presentation.home.HomeView
+import com.vkr.vkrmobile.presentation.global.GlobalMenuController
 import moxy.InjectViewState
-import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 import javax.inject.Inject
 
 @InjectViewState
 class ProfileMenuPresenter @Inject constructor(
     private val router: AppRouter,
-    private val authInteractor: AuthInteractor
+    private val authInteractor: AuthInteractor,
+    private val globalMenuController: GlobalMenuController
 ) : BasePresenter<ProfileMenuView>()  {
 
     override fun onFirstViewAttach() {
@@ -28,6 +28,7 @@ class ProfileMenuPresenter @Inject constructor(
     }
 
     fun onMenuRowClick(screen: SupportAppScreen) {
+        globalMenuController.close()
         router.navigateTo(screen)
     }
 

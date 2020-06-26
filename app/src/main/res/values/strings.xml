@@ -13,4 +13,8 @@
 
     <!--Toolbar-->
     <string name="toolbarNewsTitle">Новости</string>
+    <string name="toolbarCompaniesTitle">Компании</string>
+
+    <!--Company-->
+    <string name="companyScorePlaceHolder">Оценка: %1$s / 5</string>
 </resources>

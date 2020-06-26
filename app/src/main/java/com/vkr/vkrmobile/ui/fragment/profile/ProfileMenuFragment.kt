@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.vkr.vkrmobile.R
 import com.vkr.vkrmobile.di.AppScopes
+import com.vkr.vkrmobile.domain.config.GlobalConfig
 import com.vkr.vkrmobile.domain.config.MenuScreenConfig
 import com.vkr.vkrmobile.domain.menu.CustomMenuItem
 import com.vkr.vkrmobile.presentation.profile.ProfileMenuPresenter
@@ -18,13 +19,16 @@ import toothpick.Toothpick
 import javax.inject.Inject
 
 class ProfileMenuFragment : BaseDialogFragment(), ProfileMenuView {
-    override val layoutRes = R.layout.bottom_menu_fragment
+    override val layoutRes = R.layout.profile_menu_fragment
 
     @Inject
     lateinit var menuScreenConfig: MenuScreenConfig
 
     @InjectPresenter
     lateinit var presenter: ProfileMenuPresenter
+
+    @Inject
+    lateinit var globalConfig: GlobalConfig
 
     private val adapter by lazy { MenuAdapter() }
 
@@ -51,6 +55,10 @@ class ProfileMenuFragment : BaseDialogFragment(), ProfileMenuView {
 
         menuLogoutItem.setOnClickListener {
             presenter.logout()
+        }
+
+        toolbarLayout.run {
+            setBackgroundColor(globalConfig.accentColor)
         }
     }
 

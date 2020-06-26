@@ -1,13 +1,12 @@
 package com.vkr.vkrmobile.presentation.news
 
-import com.vkr.vkrmobile.model.interactor.auth.AuthInteractor
-import com.vkr.vkrmobile.model.interactor.news.NewsInteractor
+import com.vkr.vkrmobile.model.interactor.NewsInteractor
 import com.vkr.vkrmobile.model.navigation.AppRouter
 import com.vkr.vkrmobile.model.system.ErrorHandler
 import com.vkr.vkrmobile.model.system.SystemMessageNotifier
 import com.vkr.vkrmobile.presentation.global.BasePresenter
+import com.vkr.vkrmobile.presentation.global.GlobalMenuController
 import moxy.InjectViewState
-import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 @InjectViewState
@@ -15,10 +14,11 @@ class NewsPresenter @Inject constructor(
     private val router: AppRouter,
     private val newsInteractor: NewsInteractor,
     private val errorHandler: ErrorHandler,
-    private val systemMessageNotifier: SystemMessageNotifier
+    private val systemMessageNotifier: SystemMessageNotifier,
+    private val globalMenuController: GlobalMenuController
 ) : BasePresenter<NewsView>() {
     companion object {
-        const val NEWS_PAGE_SIZE = 25
+        const val NEWS_PAGE_SIZE = 15
     }
 
     override fun onFirstViewAttach() {
@@ -28,6 +28,10 @@ class NewsPresenter @Inject constructor(
 
     fun onBackPressed() {
         router.exit()
+    }
+
+    fun onNavigationClick() {
+        globalMenuController.open()
     }
 
     override fun onDestroy() {
@@ -45,9 +49,11 @@ class NewsPresenter @Inject constructor(
 
     fun loadNews(page: Int, pageSize: Int) = newsInteractor
         .getAllNews(page, pageSize)
+        .doOnSubscribe { viewState.showProgress(true) }
+        .doOnTerminate { viewState.showProgress(false) }
         .subscribe(
             {
-                viewState.setData(it)
+                viewState.setData(it, page, pageSize)
             },
             {
                 errorHandler.proceed(it) { message ->

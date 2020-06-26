@@ -9,8 +9,11 @@ import moxy.viewstate.strategy.StateStrategyType
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface NewsView : MvpView {
     @StateStrategyType(OneExecutionStateStrategy::class)
-    fun setData(data: List<NewsResponse>)
+    fun setData(data: List<NewsResponse>, page: Int, pageSize: Int)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun clearData()
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun showProgress(show: Boolean)
 }

@@ -1,11 +1,11 @@
-package com.vkr.vkrmobile.model.interactor.auth
+package com.vkr.vkrmobile.model.interactor
 
 import com.vkr.vkrmobile.domain.config.GlobalConfig
 import com.vkr.vkrmobile.model.data.auth.AuthState
 import com.vkr.vkrmobile.model.data.auth.Logout
 import com.vkr.vkrmobile.model.data.auth.SignedIn
 import com.vkr.vkrmobile.model.navigation.AppRouter
-import com.vkr.vkrmobile.model.repository.auth.AuthRepository
+import com.vkr.vkrmobile.model.repository.AuthRepository
 import com.vkr.vkrmobile.ui.screens.AuthScreen
 import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject

@@ -14,6 +14,7 @@ import com.vkr.vkrmobile.domain.config.MenuScreenConfig
 import com.vkr.vkrmobile.presentation.home.HomePresenter
 import com.vkr.vkrmobile.presentation.home.HomeView
 import com.vkr.vkrmobile.ui.global.setColorView
+import kotlinx.android.synthetic.main.bottom_bar_layout.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -66,6 +67,9 @@ class HomeFragment : BaseFragment(), HomeView {
                 this.menu.add(Menu.NONE, index, Menu.NONE, customMenuItem.title).run {
                     if (customMenuItem.screen != null) {
                         tabs[this.itemId] = customMenuItem.screen
+                        icon = customMenuItem.icon
+                    } else {
+                        isEnabled = false
                     }
                 }
             }
@@ -73,7 +77,7 @@ class HomeFragment : BaseFragment(), HomeView {
             if (menuScreenConfig.plusButtonEnabled) {
                 plusButton.run {
                     setColorView(globalConfig.accentColor)
-                    visibility = View.GONE
+                    visibility = View.VISIBLE
                     setOnClickListener { openBottomFragment() }
                 }
             }
@@ -85,6 +89,8 @@ class HomeFragment : BaseFragment(), HomeView {
                 if (menu.size() > 0) {
                     selectTab(menu.getItem(0).itemId)
                 }
+            } else {
+                selectTab(0)
             }
 
             setOnNavigationItemSelectedListener { item ->
@@ -100,8 +106,7 @@ class HomeFragment : BaseFragment(), HomeView {
     }
 
     private fun openBottomFragment() {
-//        activity?.supportFragmentManager?.let { (BottomMenuFragment.newInstance(true) as BottomMenuFragment).show(it, "bottom_menu") }
-        fragmentManager?.let {
+        activity?.supportFragmentManager?.let {
             (BottomMenuFragment.newInstance(true) as BottomMenuFragment).show(
                 it,
                 PLUS_BUTTON
@@ -112,12 +117,11 @@ class HomeFragment : BaseFragment(), HomeView {
     private fun loadFragment(tabId: Int) {
         val fragment = tabs[tabId]?.fragment
 
-        fragment?.run {
-            fragmentManager?.apply {
-                beginTransaction()
-                .replace(R.id.homeContainer, fragment)
+        fragment?.let {
+            childFragmentManager
+                .beginTransaction()
+                .replace(R.id.homeContainer, it)
                 .commit()
-            }
         }
     }
 

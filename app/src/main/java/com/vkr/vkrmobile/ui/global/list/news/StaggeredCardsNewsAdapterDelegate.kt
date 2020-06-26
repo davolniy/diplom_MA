@@ -9,7 +9,7 @@ import com.vkr.vkrmobile.R
 import com.vkr.vkrmobile.model.data.net.response.news.NewsResponse
 import com.vkr.vkrmobile.ui.global.inflate
 import com.vkr.vkrmobile.ui.global.loadImage
-import kotlinx.android.synthetic.main.news_card_item.view.*
+import kotlinx.android.synthetic.main.news_staggered_card_item.view.*
 
 class StaggeredCardsNewsAdapterDelegate(
     private val menuViewMode: String
@@ -39,7 +39,7 @@ class StaggeredCardsNewsAdapterDelegate(
                     url = item.logo,
                     placeholderDrawable = ContextCompat.getDrawable(context, R.drawable.ic_placeholder)
                 )
-                newsTitle.text = item.title
+                newsTitle.text = item.name
             }
         }
     }

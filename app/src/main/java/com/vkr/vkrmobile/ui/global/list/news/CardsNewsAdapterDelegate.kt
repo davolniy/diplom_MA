@@ -39,7 +39,7 @@ class CardsNewsAdapterDelegate(
                     url = item.logo,
                     placeholderDrawable = ContextCompat.getDrawable(context, R.drawable.ic_placeholder)
                 )
-                newsTitle.text = item.title
+                newsTitle.text = item.name
                 newsText.text = item.text
             }
         }

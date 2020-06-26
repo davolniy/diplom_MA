@@ -13,4 +13,21 @@ interface NewsService {
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int
     ): Single<ApiResponse<List<NewsResponse>>>
+
+    @GET(ApiMethods.News.GetAllActions)
+    fun getAllActions(
+        @Query("page") page: Int,
+        @Query("pageSize") pageSize: Int
+    ): Single<ApiResponse<List<NewsResponse>>>
+
+    @GET(ApiMethods.News.GetCompanyActions)
+    fun getCompanyActions(
+        @Query("page") page: Int,
+        @Query("pageSize") pageSize: Int
+    ): Single<ApiResponse<List<NewsResponse>>>
+
+    @GET(ApiMethods.News.GetNews)
+    fun getNews(
+        @Query("newsId") newsId: Long
+    ): Single<ApiResponse<List<NewsResponse>>>
 }

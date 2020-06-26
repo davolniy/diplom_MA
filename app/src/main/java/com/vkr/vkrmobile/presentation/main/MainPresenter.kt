@@ -22,7 +22,7 @@ class MainPresenter @Inject constructor(
     fun initialize() {
         router.setResultListener(RequestCodes.INIT) {
             Toothpick.openScopes(AppScopes.APP_SCOPE, AppScopes.MAIN_ACTIVITY_SCOPE)
-            viewState.initDrawer()
+            viewState.initMenu()
             router.removeResultListener(RequestCodes.INIT)
         }
         router.newRootScreen(LaunchScreen())

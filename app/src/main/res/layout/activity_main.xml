@@ -10,12 +10,28 @@ android:layout_height="match_parent">
     <FrameLayout
         android:id="@+id/mainContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/plusButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_button_plus"
+            app:tint="@null"
+            android:visibility="gone"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="32dp"
+            app:fabCustomSize="50dp"
+            app:maxImageSize="50dp"
+            tools:visibility="visible"/>
+
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/drawerContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start" />
+
 
 </androidx.drawerlayout.widget.DrawerLayout>
