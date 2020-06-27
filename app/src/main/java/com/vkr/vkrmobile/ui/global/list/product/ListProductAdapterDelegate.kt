@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.product_list_item.view.*
 
 class ListProductAdapterDelegate(
     private val accentColor: Int,
-    private val onAddToCartClickListener: (Long) -> Unit
+    private val onAddToCartClickListener: (Long, Long?) -> Unit
 ) : AdapterDelegate<MutableList<ProductResponse>>() {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -47,9 +47,13 @@ class ListProductAdapterDelegate(
                     placeholderDrawable = ContextCompat.getDrawable(context, R.drawable.ic_placeholder)
                 )
 
+                item.duration?.let {
+                    addToCartButton.text = context.getString(R.string.makeRequest)
+                }
+
                 addToCartButton.setBackgroundColor(accentColor)
                 addToCartButton.setOnClickListener {
-                    onAddToCartClickListener.invoke(item.id)
+                    onAddToCartClickListener.invoke(item.id, item.duration)
                 }
             }
         }

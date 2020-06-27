@@ -4,6 +4,6 @@ import com.google.gson.annotations.SerializedName
 import java.util.*
 
 class EmployeeWithTimeCellsResponse(
-    @SerializedName("employee") val employee: EmployeeResponse,
+    @SerializedName("employeeData") val employee: EmployeeResponse,
     @SerializedName("timeCells") val timeCells: List<Date>
 )

@@ -24,4 +24,7 @@ interface CompanyView : MvpView {
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun setCompanyActions(items: List<NewsResponse>)
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun pickDate(productId: Long)
 }

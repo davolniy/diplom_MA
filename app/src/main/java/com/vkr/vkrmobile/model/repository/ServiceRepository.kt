@@ -11,7 +11,7 @@ import javax.inject.Inject
 class ServiceRepository @Inject constructor(
     private val serviceService: ServiceService
 ){
-    fun getEmployees(productId: Long, selectedDate: Date) = serviceService.getEmployees(productId, selectedDate)
+    fun getEmployees(productId: Long, selectedDate: String) = serviceService.getEmployees(productId, selectedDate)
         .fetchData()
         .doOnSuccess { }
         .doOnError { }
@@ -25,7 +25,7 @@ class ServiceRepository @Inject constructor(
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
 
-    fun makeService(companyId: Long, productId: Long, employeeId: Long, serviceDate: Date) = serviceService.makeService(companyId, productId, employeeId, serviceDate)
+    fun makeService(companyId: Long, productId: Long, employeeId: Long, serviceDate: String) = serviceService.makeService(companyId, productId, employeeId, serviceDate)
         .fetchResult()
         .doOnComplete {  }
         .doOnError { }

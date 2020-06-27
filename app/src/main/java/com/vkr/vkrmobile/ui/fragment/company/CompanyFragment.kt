@@ -1,10 +1,12 @@
 package com.vkr.vkrmobile.ui.fragment.company
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.tabs.TabLayout
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.vkr.vkrmobile.R
@@ -26,6 +28,7 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import toothpick.Toothpick
 import toothpick.config.Module
+import java.util.*
 import javax.inject.Inject
 
 class CompanyFragment : BaseFragment(), CompanyView {
@@ -33,7 +36,7 @@ class CompanyFragment : BaseFragment(), CompanyView {
     companion object {
         private const val COMPANY_ID_ARGUMENT = "company_id_argument"
 
-        fun newInstance(companyId: Long) : Fragment {
+        fun newInstance(companyId: Long): Fragment {
             return CompanyFragment().apply {
                 arguments = Bundle().apply {
                     putLong(COMPANY_ID_ARGUMENT, companyId)
@@ -74,7 +77,8 @@ class CompanyFragment : BaseFragment(), CompanyView {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Toothpick.openScopes(AppScopes.MAIN_ACTIVITY_SCOPE, AppScopes.COMPANY_SCOPE).let { Toothpick.inject(this, it) }
+        Toothpick.openScopes(AppScopes.MAIN_ACTIVITY_SCOPE, AppScopes.COMPANY_SCOPE)
+            .let { Toothpick.inject(this, it) }
         super.onCreate(savedInstanceState)
     }
 
@@ -113,7 +117,10 @@ class CompanyFragment : BaseFragment(), CompanyView {
 
         catalogTabs.setSelectedTabIndicatorColor(globalConfig.accentColor)
         context?.run {
-            catalogTabs.setTabTextColors(ContextCompat.getColor(this, R.color.primaryBlack99), globalConfig.accentColor)
+            catalogTabs.setTabTextColors(
+                ContextCompat.getColor(this, R.color.primaryBlack99),
+                globalConfig.accentColor
+            )
         }
 
         catalogTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -146,6 +153,24 @@ class CompanyFragment : BaseFragment(), CompanyView {
         actionsAdapter.setData(items)
     }
 
+    override fun pickDate(productId: Long) {
+        val calendar = Calendar.getInstance()
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
+
+        activity?.run {
+            val picker = DatePickerDialog(
+                this,
+                DatePickerDialog.OnDateSetListener { v, newYear, newMonth, newDay ->
+                    calendar.set(newYear, newMonth, newDay)
+                    presenter.getEmployees(productId, calendar.timeInMillis)
+                }, year, month, day
+            )
+            picker.show()
+        }
+    }
+
     override fun setData(data: CompanyResponse) {
         toolbarText.text = data.name
         companyAddress.text = data.address
@@ -156,7 +181,8 @@ class CompanyFragment : BaseFragment(), CompanyView {
                     placeholderDrawable = ContextCompat.getDrawable(this, R.drawable.ic_placeholder)
                 )
             }
-            companyRating.text = String.format(getString(R.string.companyScorePlaceHolder), data.reviewScore)
+            companyRating.text =
+                String.format(getString(R.string.companyScorePlaceHolder), data.reviewScore)
         }
     }
 
@@ -180,7 +206,7 @@ class CompanyFragment : BaseFragment(), CompanyView {
             delegatesManager
                 .addDelegate(ListProductAdapterDelegate(
                     globalConfig.accentColor
-                ) { presenter.addProductToCart(it) })
+                ) { id, duration -> presenter.addProductToCart(id, duration) })
         }
 
         fun setData(data: List<ProductResponse>) {

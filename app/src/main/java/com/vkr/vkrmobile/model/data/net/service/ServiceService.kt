@@ -15,7 +15,7 @@ interface ServiceService {
     @GET(ApiMethods.Services.GetEmployees)
     fun getEmployees(
         @Query("productId") productId: Long,
-        @Query("selectedDate") selectedDate: Date
+        @Query("selectedDate") selectedDate: String
     ) : Single<ApiResponse<List<EmployeeWithTimeCellsResponse>>>
 
     @GET(ApiMethods.Services.GetServices)
@@ -26,6 +26,6 @@ interface ServiceService {
         @Query("companyId") companyId: Long,
         @Query("productId") productId: Long,
         @Query("employeeId") employeeId: Long,
-        @Query("serviceDate") serviceDate: Date
+        @Query("serviceDate") serviceDate: String
     ) : Single<ApiResponseEmpty>
 }

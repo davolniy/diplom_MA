@@ -8,4 +8,6 @@ object RequestCodes {
 
     val INIT = counter.incrementAndGet()
     val INIT_MENU = counter.incrementAndGet()
+
+    val SERVICE_MADE = counter.incrementAndGet()
 }

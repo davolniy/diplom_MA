@@ -12,6 +12,7 @@ object AppScopes {
     const val CHAT_SCOPE = "chat_scope"
     const val CHATS_SCOPE = "chats_scope"
     const val COMPANY_SCOPE = "company_scope"
+    const val EMPLOYEE_SELECTION_SCOPE = "employee_selection_scope"
     const val CART_SCOPE = "news_scope"
     const val PROFILE_SCOPE = "profile_scope"
     const val EDIT_PROFILE_SCOPE = "edit_profile_scope"

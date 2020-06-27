@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:id="@+id/companyItemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+
+        app:cardBackgroundColor="@color/primaryBlack99"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="8dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dateCell"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textAppearance="@style/TextAppearance.WhiteRegular"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/companyReviews"
+            app:layout_constraintLeft_toRightOf="@id/companyLogoCard"
+            app:layout_constraintRight_toRightOf="parent"
+
+            tools:text="Компания 1"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</FrameLayout>

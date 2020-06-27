@@ -7,9 +7,9 @@ import javax.inject.Inject
 class ServiceInteractor @Inject constructor(
     private val serviceRepository: ServiceRepository
 ){
-    fun getRequests(productId: Long, selectedDate: Date) = serviceRepository.getEmployees(productId, selectedDate)
+    fun getEmployees(productId: Long, selectedDate: String) = serviceRepository.getEmployees(productId, selectedDate)
 
-    fun getRequestType() = serviceRepository.getServices()
+    fun getServices() = serviceRepository.getServices()
 
-    fun makeRequest(companyId: Long, productId: Long, employeeId: Long, serviceDate: Date) = serviceRepository.makeService(companyId, productId, employeeId, serviceDate)
+    fun makeService(companyId: Long, productId: Long, employeeId: Long, serviceDate: String) = serviceRepository.makeService(companyId, productId, employeeId, serviceDate)
 }

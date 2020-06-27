@@ -183,12 +183,4 @@
 
     </LinearLayout>
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginRight="32dp"-->
-<!--        android:layout_marginBottom="82dp"-->
-<!--        android:layout_gravity="end|bottom"-->
-<!--        />-->
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

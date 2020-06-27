@@ -15,6 +15,7 @@
     <string name="toolbarNewsTitle">Новости</string>
     <string name="toolbarProfileTitle">Профиль</string>
     <string name="toolbarCompaniesTitle">Компании</string>
+    <string name="toolbarEmployeeSelectionTitle">Выберите сотрудника</string>
     <string name="toolbarChatsTitle">Чаты</string>
 
     <!--Company-->
@@ -34,4 +35,5 @@
 
     <!--Product-->
     <string name="addToCart">В корзину</string>
+    <string name="makeRequest">Записаться</string>
 </resources>

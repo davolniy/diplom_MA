@@ -3,10 +3,13 @@ package com.vkr.vkrmobile.presentation.company
 import com.vkr.vkrmobile.model.data.net.response.catalog.CatalogResponse
 import com.vkr.vkrmobile.model.interactor.*
 import com.vkr.vkrmobile.model.navigation.AppRouter
+import com.vkr.vkrmobile.model.navigation.RequestCodes
 import com.vkr.vkrmobile.model.system.ErrorHandler
 import com.vkr.vkrmobile.model.system.SystemMessageNotifier
 import com.vkr.vkrmobile.presentation.global.BasePresenter
+import com.vkr.vkrmobile.ui.screens.EmployeeSelectionScreen
 import moxy.InjectViewState
+import java.util.*
 import javax.inject.Inject
 
 @InjectViewState
@@ -32,9 +35,7 @@ class CompanyPresenter @Inject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        loadCompany(companyId)
-        loadActions(companyId)
-        loadCatalogs(companyId)
+        refresh()
     }
 
     fun onBackPressed() {
@@ -46,6 +47,9 @@ class CompanyPresenter @Inject constructor(
     }
 
     fun refresh() {
+        loadCompany(companyId)
+        loadActions(companyId)
+        loadCatalogs(companyId)
     }
 
     fun selectCatalogCategory(catalogId: Long) {
@@ -67,17 +71,30 @@ class CompanyPresenter @Inject constructor(
                 }
             })
 
-    fun addProductToCart(productId: Long) = cartInteractor
-        .addToCart(companyId, productId)
-        .subscribe(
-            {
-                systemMessageNotifier.send("Продукт успешно добавлен в корзину")
-            },
-            {
-                errorHandler.proceed(it) { message ->
-                    systemMessageNotifier.send(message)
-                }
-            })
+    fun getEmployees(productId: Long, selectedDate: Long) {
+        router.setResultListener(RequestCodes.SERVICE_MADE) {
+            refresh()
+        }
+        router.navigateTo(EmployeeSelectionScreen(companyId, productId, selectedDate))
+    }
+
+    fun addProductToCart(productId: Long, duration: Long?) {
+        if (duration != null) {
+            viewState.pickDate(productId)
+        } else {
+            cartInteractor
+                .addToCart(companyId, productId)
+                .subscribe(
+                    {
+                        systemMessageNotifier.send("Продукт успешно добавлен в корзину")
+                    },
+                    {
+                        errorHandler.proceed(it) { message ->
+                            systemMessageNotifier.send(message)
+                        }
+                    })
+        }
+    }
 
     fun loadCatalogs(companyId: Long) = catalogInteractor
         .getCompanyCatalogs(companyId)
