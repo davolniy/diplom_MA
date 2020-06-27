@@ -15,7 +15,8 @@ import com.vkr.vkrmobile.ui.global.loadImage
 import kotlinx.android.synthetic.main.company_expandable_item.view.*
 
 class ExpandableListCompaniesAdapterDelegate(
-    private val companiesMenuViewMode: String
+    private val companiesMenuViewMode: String,
+    private val onCompanyClickListener: (Long) -> Unit
 ) : AdapterDelegate<MutableList<CompanyWithBranchesResponse>>() {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -57,6 +58,8 @@ class ExpandableListCompaniesAdapterDelegate(
                 companyName.text = item.parentCompany.name
                 companyReviews.text = String.format(context.getString(R.string.companyScorePlaceHolder), item.parentCompany.reviewScore)
 
+                companyLayout.setOnClickListener { onCompanyClickListener.invoke(item.parentCompany.id) }
+
                 expandIcon.setOnClickListener {
                     if (branchesRecyclerView.visibility == View.GONE) {
                         expandIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_arrow_top))
@@ -72,7 +75,9 @@ class ExpandableListCompaniesAdapterDelegate(
         private inner class BranchAdapter : ListDelegationAdapter<MutableList<CompanyResponse>>() {
             init {
                 items = mutableListOf()
-                delegatesManager.addDelegate(ListBranchesAdapterDelegate())
+                delegatesManager.addDelegate(ListBranchesAdapterDelegate(
+                    onCompanyClickListener
+                ))
             }
 
             fun setData(data: List<CompanyResponse>) {

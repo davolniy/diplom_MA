@@ -15,14 +15,14 @@ interface CartService {
 
     @POST(ApiMethods.Carts.AddToCart)
     fun addToCart(
-        @Query("productId") catalogId: Long,
-        @Query("companyId") companyId: Long
+        @Query("companyId") companyId: Long,
+        @Query("productId") catalogId: Long
     ): Single<ApiResponseEmpty>
 
     @POST(ApiMethods.Carts.UpdateProductCount)
     fun updateProductCount(
-        @Query("productId") catalogId: Long,
         @Query("companyId") companyId: Long,
+        @Query("productId") catalogId: Long,
         @Query("count") count: Int
     ): Single<ApiResponseEmpty>
 }

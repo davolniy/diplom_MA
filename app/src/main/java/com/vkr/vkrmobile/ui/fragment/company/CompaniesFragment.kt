@@ -42,7 +42,8 @@ class CompaniesFragment : BaseFragment(), CompaniesView {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Toothpick.openScopes(AppScopes.MAIN_ACTIVITY_SCOPE, AppScopes.NEWS_SCOPE).let { Toothpick.inject(this, it) }
+        Toothpick.openScopes(AppScopes.MAIN_ACTIVITY_SCOPE, AppScopes.NEWS_SCOPE)
+            .let { Toothpick.inject(this, it) }
         super.onCreate(savedInstanceState)
     }
 
@@ -84,13 +85,23 @@ class CompaniesFragment : BaseFragment(), CompaniesView {
         companiesSwipeRefreshLayout.isRefreshing = show
     }
 
-    private inner class CompaniesAdapter() : ListDelegationAdapter<MutableList<CompanyWithBranchesResponse>>() {
+    private inner class CompaniesAdapter() :
+        ListDelegationAdapter<MutableList<CompanyWithBranchesResponse>>() {
         init {
             items = mutableListOf()
             delegatesManager
-                .addDelegate(ListCompaniesAdapterDelegate(globalConfig.configurationParams.companiesViewMode))
-                .addDelegate(CellsCompaniesAdapterDelegate(globalConfig.configurationParams.companiesViewMode))
-                .addDelegate(ExpandableListCompaniesAdapterDelegate(globalConfig.configurationParams.companiesViewMode))
+                .addDelegate(ListCompaniesAdapterDelegate(
+                    globalConfig.configurationParams.companiesViewMode
+                )
+                { presenter.onCompanyClick(it) })
+                .addDelegate(CellsCompaniesAdapterDelegate(
+                    globalConfig.configurationParams.companiesViewMode
+                )
+                { presenter.onCompanyClick(it) })
+                .addDelegate(ExpandableListCompaniesAdapterDelegate(
+                    globalConfig.configurationParams.companiesViewMode
+                )
+                { presenter.onCompanyClick(it) })
         }
 
         fun clearData() {

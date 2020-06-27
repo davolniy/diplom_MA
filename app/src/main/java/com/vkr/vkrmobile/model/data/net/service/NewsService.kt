@@ -22,8 +22,7 @@ interface NewsService {
 
     @GET(ApiMethods.News.GetCompanyActions)
     fun getCompanyActions(
-        @Query("page") page: Int,
-        @Query("pageSize") pageSize: Int
+        @Query("companyId") companyId: Long
     ): Single<ApiResponse<List<NewsResponse>>>
 
     @GET(ApiMethods.News.GetNews)

@@ -14,4 +14,16 @@ class NewsRepository @Inject constructor(
         .fetchData()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
+
+    fun getAllActions(page: Int, pageSize: Int) = newsService
+        .getAllActions(page, pageSize)
+        .fetchData()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+
+    fun getCompanyActions(companyId: Long) = newsService
+        .getCompanyActions(companyId)
+        .fetchData()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
 }

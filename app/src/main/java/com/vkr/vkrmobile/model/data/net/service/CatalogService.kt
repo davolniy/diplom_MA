@@ -14,10 +14,10 @@ interface CatalogService {
     @GET(ApiMethods.Catalogs.GetCompanyCatalogs)
     fun getCompanyCatalogs(
         @Query("companyId") companyId: Long
-    ): Single<ApiResponse<List<ChatResponse>>>
+    ): Single<ApiResponse<List<CatalogResponse>>>
 
     @GET(ApiMethods.Catalogs.GetCatalogWithProducts)
     fun getCatalogWithProducts(
         @Query("catalogId") catalogId: Long
-    ): Single<ApiResponse<ChatResponse>>
+    ): Single<ApiResponse<CatalogWithProductsResponse>>
 }

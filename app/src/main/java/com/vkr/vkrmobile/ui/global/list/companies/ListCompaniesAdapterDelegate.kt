@@ -12,7 +12,8 @@ import com.vkr.vkrmobile.ui.global.loadImage
 import kotlinx.android.synthetic.main.company_list_item.view.*
 
 class ListCompaniesAdapterDelegate(
-    private val companiesMenuViewMode: String
+    private val companiesMenuViewMode: String,
+    private val onCompanyClickListener: (Long) -> Unit
 ) : AdapterDelegate<MutableList<CompanyWithBranchesResponse>>() {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -35,6 +36,7 @@ class ListCompaniesAdapterDelegate(
     private inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(item: CompanyWithBranchesResponse) {
             with(view) {
+                companyLayout.setOnClickListener { onCompanyClickListener.invoke(item.parentCompany.id) }
                 companyLogo.loadImage(
                     url = item.parentCompany.logo,
                     placeholderDrawable = ContextCompat.getDrawable(context, R.drawable.ic_placeholder)

@@ -30,4 +30,8 @@
 
     <!--Common-->
     <string name="save">Сохранить</string>
+    <string name="costPlaceHolder">%1$s руб.</string>
+
+    <!--Product-->
+    <string name="addToCart">В корзину</string>
 </resources>

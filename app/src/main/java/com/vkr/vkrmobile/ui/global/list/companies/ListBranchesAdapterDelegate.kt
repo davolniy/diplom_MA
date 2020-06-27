@@ -13,7 +13,9 @@ import com.vkr.vkrmobile.ui.global.loadImage
 import com.vkr.vkrmobile.ui.global.updatePadding
 import kotlinx.android.synthetic.main.company_list_item.view.*
 
-class ListBranchesAdapterDelegate() : AdapterDelegate<MutableList<CompanyResponse>>() {
+class ListBranchesAdapterDelegate(
+    private val onCompanyClickListener: (Long) -> Unit
+) : AdapterDelegate<MutableList<CompanyResponse>>() {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return ViewHolder(parent.inflate(R.layout.company_list_item))
@@ -35,12 +37,19 @@ class ListBranchesAdapterDelegate() : AdapterDelegate<MutableList<CompanyRespons
     private inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(item: CompanyResponse) {
             with(view) {
+                companyLayout.setOnClickListener { onCompanyClickListener.invoke(item.id) }
                 companyLogo.loadImage(
                     url = item.logo,
-                    placeholderDrawable = ContextCompat.getDrawable(context, R.drawable.ic_placeholder)
+                    placeholderDrawable = ContextCompat.getDrawable(
+                        context,
+                        R.drawable.ic_placeholder
+                    )
                 )
                 companyName.text = item.name
-                companyReviews.text = String.format(context.getString(R.string.companyScorePlaceHolder), item.reviewScore)
+                companyReviews.text = String.format(
+                    context.getString(R.string.companyScorePlaceHolder),
+                    item.reviewScore
+                )
             }
         }
     }

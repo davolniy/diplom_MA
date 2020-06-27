@@ -1,26 +1,22 @@
-package com.vkr.vkrmobile.presentation.company
+package com.vkr.vkrmobile.presentation.cart
 
-import com.vkr.vkrmobile.model.interactor.AuthInteractor
-import com.vkr.vkrmobile.model.interactor.CompanyInteractor
+import com.vkr.vkrmobile.model.interactor.CartInteractor
 import com.vkr.vkrmobile.model.navigation.AppRouter
 import com.vkr.vkrmobile.model.system.ErrorHandler
 import com.vkr.vkrmobile.model.system.SystemMessageNotifier
 import com.vkr.vkrmobile.presentation.global.BasePresenter
-import com.vkr.vkrmobile.ui.screens.CompanyScreen
 import moxy.InjectViewState
 import javax.inject.Inject
 
 @InjectViewState
-class CompaniesPresenter @Inject constructor(
+class CartsPresenter @Inject constructor(
     private val router: AppRouter,
-    private val companyInteractor: CompanyInteractor,
+    private val cartInteractor: CartInteractor,
     private val errorHandler: ErrorHandler,
     private val systemMessageNotifier: SystemMessageNotifier
-) : BasePresenter<CompaniesView>() {
-
+) : BasePresenter<CartsView>() {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        loadCompaniesWithBranches()
     }
 
     fun onBackPressed() {
@@ -31,16 +27,8 @@ class CompaniesPresenter @Inject constructor(
         super.onDestroy()
     }
 
-    fun refresh() {
-        loadCompaniesWithBranches()
-    }
-
-    fun onCompanyClick(companyId: Long) {
-        router.navigateTo(CompanyScreen(companyId))
-    }
-
-    fun loadCompaniesWithBranches() = companyInteractor
-        .getCompaniesWithBranches()
+    fun loadCarts() = cartInteractor
+        .getAllCarts()
         .doOnSubscribe { viewState.showProgress(true) }
         .doOnTerminate { viewState.showProgress(false) }
         .subscribe(
