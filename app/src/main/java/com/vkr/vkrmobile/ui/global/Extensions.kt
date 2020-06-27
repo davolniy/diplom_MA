@@ -82,8 +82,7 @@ fun ImageView.loadImage(
     placeholderDrawable: Drawable? = null
 ) {
     if (url.isNullOrEmpty()) {
-        this.setImageBitmap(null)
-        this.visibility = View.GONE
+        this.setImageDrawable(placeholderDrawable)
         return
     }
 

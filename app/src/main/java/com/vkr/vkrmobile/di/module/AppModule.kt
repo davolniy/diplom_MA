@@ -31,6 +31,7 @@ class AppModule() : Module() {
         bind(CompanyService::class.java).toProvider(CompanyServiceProvider::class.java).singleton()
         bind(CatalogService::class.java).toProvider(CatalogServiceProvider::class.java).singleton()
         bind(CartService::class.java).toProvider(CartServiceProvider::class.java).singleton()
+        bind(ChatService::class.java).toProvider(ChatServiceProvider::class.java).singleton()
         bind(OrderService::class.java).toProvider(OrderServiceProvider::class.java).singleton()
         bind(ProductService::class.java).toProvider(ProductServiceProvider::class.java).singleton()
         bind(RequestService::class.java).toProvider(RequestServiceProvider::class.java).singleton()

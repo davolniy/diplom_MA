@@ -44,7 +44,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerCrop"
                     android:visibility="gone"
 
                     tools:visibility="visible"

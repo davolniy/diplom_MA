@@ -50,7 +50,7 @@ class NewsFragment : BaseFragment(), NewsView {
 
     override fun onDestroy() {
         super.onDestroy()
-        Toothpick.closeScope(AppScopes.AUTH_SCOPE)
+        Toothpick.closeScope(AppScopes.NEWS_SCOPE)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -5,7 +5,7 @@ import java.util.*
 
 class ChatMessageResponse (
     @SerializedName("id") val id: Long,
-    @SerializedName("text") val text: Long,
+    @SerializedName("text") val text: String,
     @SerializedName("chatId") val chatId: Long,
     @SerializedName("createDate") val createDate: Date,
     @SerializedName("senderId") val senderId: Long

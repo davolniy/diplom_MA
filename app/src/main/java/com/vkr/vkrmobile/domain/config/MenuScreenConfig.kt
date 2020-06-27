@@ -4,10 +4,7 @@ import android.content.Context
 import com.vkr.vkrmobile.R
 import com.vkr.vkrmobile.domain.menu.CustomMenu
 import com.vkr.vkrmobile.domain.menu.CustomMenuItem
-import com.vkr.vkrmobile.ui.screens.BottomMenuScreen
-import com.vkr.vkrmobile.ui.screens.CompaniesScreen
-import com.vkr.vkrmobile.ui.screens.EditProfileScreen
-import com.vkr.vkrmobile.ui.screens.NewsScreen
+import com.vkr.vkrmobile.ui.screens.*
 import javax.inject.Inject
 
 class MenuScreenConfig @Inject constructor(
@@ -58,7 +55,7 @@ class MenuScreenConfig @Inject constructor(
                     CustomMenuItem(
                         title = "Чаты",
                         icon = context.getDrawable(R.drawable.ic_chat)?.apply { setTint(globalConfig.accentColor) },
-                        screen = NewsScreen()
+                        screen = ChatsScreen()
                     )
                 )
             }
