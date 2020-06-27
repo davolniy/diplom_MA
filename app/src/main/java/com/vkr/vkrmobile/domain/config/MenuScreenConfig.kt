@@ -35,7 +35,7 @@ class MenuScreenConfig @Inject constructor(
                     CustomMenuItem(
                         title = "Корзина",
                         icon = context.getDrawable(R.drawable.ic_cart)?.apply { setTint(globalConfig.accentColor) },
-                        screen = NewsScreen()
+                        screen = CartsScreen()
                     )
                 )
             }

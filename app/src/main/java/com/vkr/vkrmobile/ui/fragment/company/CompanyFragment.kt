@@ -191,12 +191,17 @@ class CompanyFragment : BaseFragment(), CompanyView {
             items = mutableListOf()
             delegatesManager
                 .addDelegate(CardsActionAdapterDelegate())
+            setHasStableIds(true)
         }
 
         fun setData(data: List<NewsResponse>) {
             items.clear()
             items.addAll(data)
             notifyDataSetChanged()
+        }
+
+        override fun getItemId(position: Int): Long {
+            return items.get(position).id
         }
     }
 
@@ -207,12 +212,17 @@ class CompanyFragment : BaseFragment(), CompanyView {
                 .addDelegate(ListProductAdapterDelegate(
                     globalConfig.accentColor
                 ) { id, duration -> presenter.addProductToCart(id, duration) })
+            setHasStableIds(true)
         }
 
         fun setData(data: List<ProductResponse>) {
             items.clear()
             items.addAll(data)
             notifyDataSetChanged()
+        }
+
+        override fun getItemId(position: Int): Long {
+            return items.get(position).id
         }
     }
 }

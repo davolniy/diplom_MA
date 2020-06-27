@@ -38,6 +38,11 @@ class CompanyPresenter @Inject constructor(
         refresh()
     }
 
+    override fun attachView(view: CompanyView?) {
+        super.attachView(view)
+        refresh()
+    }
+
     fun onBackPressed() {
         router.exit()
     }
