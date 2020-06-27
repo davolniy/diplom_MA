@@ -90,10 +90,6 @@ class NewsFragment : BaseFragment(), NewsView {
         adapter.setData(data, page, pageSize)
     }
 
-    override fun clearData() {
-        adapter.clearData()
-    }
-
     private inner class NewsAdapter() : ListDelegationAdapter<MutableList<NewsResponse>>() {
         private var page: Int = 1
 

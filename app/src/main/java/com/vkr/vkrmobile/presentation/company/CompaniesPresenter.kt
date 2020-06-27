@@ -30,6 +30,10 @@ class CompaniesPresenter @Inject constructor(
         super.onDestroy()
     }
 
+    fun refresh() {
+        loadCompaniesWithBranches()
+    }
+
     fun loadCompaniesWithBranches() = companyInteractor
         .getCompaniesWithBranches()
         .doOnSubscribe { viewState.showProgress(true) }

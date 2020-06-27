@@ -5,6 +5,8 @@ import com.vkr.vkrmobile.R
 import com.vkr.vkrmobile.domain.menu.CustomMenu
 import com.vkr.vkrmobile.domain.menu.CustomMenuItem
 import com.vkr.vkrmobile.ui.screens.BottomMenuScreen
+import com.vkr.vkrmobile.ui.screens.CompaniesScreen
+import com.vkr.vkrmobile.ui.screens.EditProfileScreen
 import com.vkr.vkrmobile.ui.screens.NewsScreen
 import javax.inject.Inject
 
@@ -20,14 +22,6 @@ class MenuScreenConfig @Inject constructor(
         get() {
             val menu: MutableCollection<CustomMenuItem> = mutableListOf()
 
-            menu.add(
-                CustomMenuItem(
-                    title = "Профиль",
-                    icon = context.getDrawable(R.drawable.ic_profile)?.apply { setTint(globalConfig.accentColor) },
-                    screen = NewsScreen()
-                )
-            )
-
             if (functions.catalogs) {
                 menu.add(
                     CustomMenuItem(
@@ -37,7 +31,7 @@ class MenuScreenConfig @Inject constructor(
                                 globalConfig.accentColor
                             )
                         },
-                        screen = NewsScreen()
+                        screen = CompaniesScreen()
                     )
                 )
                 menu.add(
@@ -95,6 +89,17 @@ class MenuScreenConfig @Inject constructor(
                         screen = NewsScreen()
                     )
                 )
+                menu.add(
+                    CustomMenuItem(
+                        title = "Оставить заявку",
+                        icon = context.getDrawable(R.drawable.ic_add)?.apply {
+                            setTint(
+                                globalConfig.accentColor
+                            )
+                        },
+                        screen = NewsScreen()
+                    )
+                )
             }
 
             if (functions.services) {
@@ -124,6 +129,14 @@ class MenuScreenConfig @Inject constructor(
                     )
                 )
             }
+
+            menu.add(
+                CustomMenuItem(
+                    title = "Профиль",
+                    icon = context.getDrawable(R.drawable.ic_profile)?.apply { setTint(globalConfig.accentColor) },
+                    screen = EditProfileScreen()
+                )
+            )
 
             return menu.toList()
         }

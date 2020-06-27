@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.vkr.vkrmobile.R
 import com.vkr.vkrmobile.di.AppScopes
+import com.vkr.vkrmobile.domain.config.AuthConfig
 import com.vkr.vkrmobile.domain.config.GlobalConfig
 import com.vkr.vkrmobile.domain.config.MenuScreenConfig
 import com.vkr.vkrmobile.domain.menu.CustomMenuItem
@@ -30,6 +31,9 @@ class ProfileMenuFragment : BaseDialogFragment(), ProfileMenuView {
     @Inject
     lateinit var globalConfig: GlobalConfig
 
+    @Inject
+    lateinit var authConfig: AuthConfig
+
     private val adapter by lazy { MenuAdapter() }
 
     @ProvidePresenter
@@ -51,7 +55,8 @@ class ProfileMenuFragment : BaseDialogFragment(), ProfileMenuView {
             adapter = this@ProfileMenuFragment.adapter
         }
 
-        adapter.setData(menuScreenConfig.customMenu.menuItems)
+        adapter.setData(
+            menuScreenConfig.customMenu.menuItems)
 
         menuLogoutItem.setOnClickListener {
             presenter.logout()
@@ -60,6 +65,13 @@ class ProfileMenuFragment : BaseDialogFragment(), ProfileMenuView {
         toolbarLayout.run {
             setBackgroundColor(globalConfig.accentColor)
         }
+
+        editProfileButton.run {
+            setOnClickListener { presenter.onEditProfileButtonClick() }
+        }
+
+        userName.text = authConfig.userName
+        userEmail.text = authConfig.userEmail
     }
 
     override fun setMenu(items: List<CustomMenuItem>) {

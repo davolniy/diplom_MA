@@ -1,5 +1,6 @@
 package com.vkr.vkrmobile.presentation.home
 
+import com.vkr.vkrmobile.model.interactor.AuthInteractor
 import com.vkr.vkrmobile.model.navigation.AppRouter
 import com.vkr.vkrmobile.model.system.ErrorHandler
 import com.vkr.vkrmobile.model.system.SystemMessageNotifier
@@ -15,6 +16,7 @@ import javax.inject.Inject
 @InjectViewState
 class BottomMenuPresenter @Inject constructor(
     private val router: AppRouter,
+    private val authInteractor: AuthInteractor,
     private val systemMessageNotifier: SystemMessageNotifier,
     private val errorHandler: ErrorHandler
 ) : BasePresenter<BottomMenuView>() {

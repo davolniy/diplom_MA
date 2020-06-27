@@ -81,32 +81,42 @@ class MainActivity : BaseActivity(), MainView {
         }
     }
 
-    override fun initMenu() {
-        when(globalConfig.configurationParams.menuViewMode) {
-            "Top" -> {
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.START)
-                GravityCompat.START
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.drawerContainer, ProfileMenuFragment())
-                    .commitNow()
-            }
-            "FAB" -> {
-                plusButton.visibility = View.VISIBLE
-                plusButton.setColorView(globalConfig.accentColor)
-                plusButton.setOnClickListener {
-                    supportFragmentManager.let {
-                        (BottomMenuFragment.newInstance(false) as BottomMenuFragment).show(
-                            it,
-                            PLUS_BUTTON
-                        )
-                    }
+    override fun initMenu(init: Boolean) {
+        if (init) {
+
+            when(globalConfig.configurationParams.menuViewMode) {
+                "Top" -> {
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.START)
+                    GravityCompat.START
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.drawerContainer, ProfileMenuFragment())
+                        .commitNow()
                 }
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                "FAB" -> {
+                    plusButton.visibility = View.VISIBLE
+                    plusButton.setColorView(globalConfig.accentColor)
+                    plusButton.setOnClickListener {
+                        supportFragmentManager.let {
+                            (BottomMenuFragment.newInstance(false) as BottomMenuFragment).show(
+                                it,
+                                PLUS_BUTTON
+                            )
+                        }
+                    }
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                }
+                else -> {
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                }
             }
-            else -> {
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        } else {
+            when(globalConfig.configurationParams.menuViewMode) {
+                "FAB" -> {
+                    plusButton.visibility = View.GONE
+                }
             }
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         }
     }
 

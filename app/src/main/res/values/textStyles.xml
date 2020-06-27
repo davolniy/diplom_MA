@@ -15,7 +15,7 @@
 
     <style name="TextAppearance.GreyRegular" parent="TextAppearance">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/primaryWhite55</item>
+        <item name="android:textColor">@color/primaryBlack</item>
     </style>
 
     <style name="TextAppearance.GreyHeader" parent="TextAppearance">

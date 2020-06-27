@@ -43,7 +43,6 @@ class NewsPresenter @Inject constructor(
     }
 
     fun refresh() {
-        viewState.clearData()
         loadNews(1, NEWS_PAGE_SIZE)
     }
 

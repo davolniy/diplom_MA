@@ -1,16 +1,16 @@
-package com.vkr.vkrmobile.presentation.news
+package com.vkr.vkrmobile.presentation.profile
 
-import com.vkr.vkrmobile.model.data.net.response.news.NewsResponse
+import com.vkr.vkrmobile.model.data.net.response.auth.ProfileResponse
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.OneExecutionStateStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface NewsView : MvpView {
-    @StateStrategyType(OneExecutionStateStrategy::class)
-    fun setData(data: List<NewsResponse>, page: Int, pageSize: Int)
-
+interface EditProfileView : MvpView {
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showProgress(show: Boolean)
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun setData(profile: ProfileResponse)
 }

@@ -22,8 +22,12 @@ class MainPresenter @Inject constructor(
     fun initialize() {
         router.setResultListener(RequestCodes.INIT) {
             Toothpick.openScopes(AppScopes.APP_SCOPE, AppScopes.MAIN_ACTIVITY_SCOPE)
-            viewState.initMenu()
             router.removeResultListener(RequestCodes.INIT)
+        }
+        router.setResultListener(RequestCodes.INIT_MENU) {
+            val result = it as Boolean
+
+            viewState.initMenu(result)
         }
         router.newRootScreen(LaunchScreen())
     }

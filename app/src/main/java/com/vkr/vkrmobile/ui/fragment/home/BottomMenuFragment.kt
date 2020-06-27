@@ -8,6 +8,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.vkr.vkrmobile.R
 import com.vkr.vkrmobile.di.AppScopes
+import com.vkr.vkrmobile.domain.config.GlobalConfig
 import com.vkr.vkrmobile.domain.config.MenuScreenConfig
 import com.vkr.vkrmobile.domain.menu.CustomMenuItem
 import com.vkr.vkrmobile.presentation.home.BottomMenuPresenter
@@ -35,6 +36,9 @@ class BottomMenuFragment : BaseDialogFragment(), BottomMenuView {
     }
 
     override val layoutRes = R.layout.bottom_menu_fragment
+
+    @Inject
+    lateinit var globalConfig: GlobalConfig
 
     @Inject
     lateinit var menuScreenConfig: MenuScreenConfig
@@ -68,7 +72,7 @@ class BottomMenuFragment : BaseDialogFragment(), BottomMenuView {
             adapter = this@BottomMenuFragment.adapter
         }
 
-        adapter.setData(if (forPlusButton) menuScreenConfig.customMenu.plusMenuItems else menuScreenConfig.customMenu.menuItems)
+        adapter.setData((if (forPlusButton) menuScreenConfig.customMenu.plusMenuItems else menuScreenConfig.customMenu.menuItems))
     }
 
     override fun setMenu(items: List<CustomMenuItem>) {

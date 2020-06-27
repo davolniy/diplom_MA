@@ -5,9 +5,11 @@ import com.vkr.vkrmobile.model.data.auth.AuthState
 import com.vkr.vkrmobile.model.data.auth.Logout
 import com.vkr.vkrmobile.model.data.auth.SignedIn
 import com.vkr.vkrmobile.model.navigation.AppRouter
+import com.vkr.vkrmobile.model.navigation.RequestCodes
 import com.vkr.vkrmobile.model.repository.AuthRepository
 import com.vkr.vkrmobile.ui.screens.AuthScreen
 import io.reactivex.rxjava3.core.Observable
+import ru.terrakok.cicerone.android.support.SupportAppScreen
 import javax.inject.Inject
 
 class AuthInteractor @Inject constructor(
@@ -19,7 +21,15 @@ class AuthInteractor @Inject constructor(
 
     val isAuthRequired get() = globalConfig.configurationParams.authRequired
 
-    fun invokeWithAuthCheck(action: () -> Void) {
+    fun invokeWithAuthCheck(screen: SupportAppScreen, action: () -> Unit) {
+        if (isSignedIn) {
+            action.invoke()
+        } else {
+            router.navigateTo(AuthScreen())
+        }
+    }
+
+    fun invokeWithAuthCheck(action: () -> Unit) {
         if (isSignedIn) {
             action.invoke()
         } else {
@@ -31,6 +41,10 @@ class AuthInteractor @Inject constructor(
 
     fun authorize(phoneNumber: String, password: String) = authRepository.authorize(phoneNumber, password)
 
+    fun editProfile(name: String, email: String, gender: Boolean?) = authRepository.editProfile(name, email, gender)
+
+    fun getProfile() = authRepository.getProfile()
+
     fun logout() {
         authRepository.logout()
 
@@ -39,14 +53,8 @@ class AuthInteractor @Inject constructor(
         }
 
         if (isAuthRequired) {
+            router.sendResult(RequestCodes.INIT_MENU, false)
             router.newRootScreen(AuthScreen())
-        }
-    }
-
-    val authState: Observable<AuthState> = authRepository.authChangesObservable.map { isSignedIn ->
-        when {
-            isSignedIn -> SignedIn()
-            else -> Logout(isAuthRequired)
         }
     }
 }

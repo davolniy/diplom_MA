@@ -13,8 +13,20 @@
 
     <!--Toolbar-->
     <string name="toolbarNewsTitle">Новости</string>
+    <string name="toolbarProfileTitle">Профиль</string>
     <string name="toolbarCompaniesTitle">Компании</string>
 
     <!--Company-->
     <string name="companyScorePlaceHolder">Оценка: %1$s / 5</string>
+
+    <!--Profile-->
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+    <string name="none">Не указан</string>
+    <string name="nameNumberHint">Введите имя</string>
+    <string name="emailPasswordHint">Введите email</string>
+    <string name="signOut">Выйти из аккаунта</string>
+
+    <!--Common-->
+    <string name="save">Сохранить</string>
 </resources>

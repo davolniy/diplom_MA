@@ -42,7 +42,7 @@ class ExpandableListCompaniesAdapterDelegate(
             with(view) {
                 branchesRecyclerView.run {
                     layoutManager = LinearLayoutManager(context)
-                    adapter = adapter
+                    adapter = this@ViewHolder.adapter
                 }
             }
         }
@@ -56,6 +56,16 @@ class ExpandableListCompaniesAdapterDelegate(
                 )
                 companyName.text = item.parentCompany.name
                 companyReviews.text = String.format(context.getString(R.string.companyScorePlaceHolder), item.parentCompany.reviewScore)
+
+                expandIcon.setOnClickListener {
+                    if (branchesRecyclerView.visibility == View.GONE) {
+                        expandIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_arrow_top))
+                        branchesRecyclerView.visibility = View.VISIBLE
+                    } else {
+                        expandIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_arrow_bottom))
+                        branchesRecyclerView.visibility = View.GONE
+                    }
+                }
             }
         }
 

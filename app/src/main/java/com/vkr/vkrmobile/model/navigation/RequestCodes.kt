@@ -7,4 +7,5 @@ object RequestCodes {
     private val counter = AtomicInteger()
 
     val INIT = counter.incrementAndGet()
+    val INIT_MENU = counter.incrementAndGet()
 }

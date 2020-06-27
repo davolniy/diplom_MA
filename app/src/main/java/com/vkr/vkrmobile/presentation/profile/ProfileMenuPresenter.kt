@@ -27,6 +27,9 @@ class ProfileMenuPresenter @Inject constructor(
         super.onDestroy()
     }
 
+    fun onEditProfileButtonClick() {
+    }
+
     fun onMenuRowClick(screen: SupportAppScreen) {
         globalMenuController.close()
         router.navigateTo(screen)

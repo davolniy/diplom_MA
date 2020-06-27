@@ -4,6 +4,7 @@ import com.vkr.vkrmobile.di.AppScopes
 import com.vkr.vkrmobile.domain.config.GlobalConfig
 import com.vkr.vkrmobile.model.data.net.response.launch.AppConfigurationResponse
 import com.vkr.vkrmobile.model.navigation.AppRouter
+import com.vkr.vkrmobile.model.navigation.RequestCodes
 import com.vkr.vkrmobile.model.repository.LaunchRepository
 import com.vkr.vkrmobile.ui.screens.AuthScreen
 import com.vkr.vkrmobile.ui.screens.HomeScreen
@@ -33,6 +34,7 @@ class LaunchInteractor @Inject constructor(
             } else {
                 router.newRootScreen(HomeScreen())
             }
+            router.sendResult(RequestCodes.INIT_MENU, true)
         }
     }
 }

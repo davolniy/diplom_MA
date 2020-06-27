@@ -12,6 +12,9 @@ class AuthConfig @Inject constructor(
         private const val AUTH_DATA = "auth_data"
         private const val KEY_TOKEN = "ad_token"
         private const val KEY_USER_ID = "ad_user_id"
+        private const val KEY_USER_NAME = "ad_user_name"
+        private const val KEY_USER_EMAIL = "ad_user_email"
+        private const val KEY_USER_GENDER = "ad_user_gender"
     }
 
     private fun getSharedPreferences(prefsName: String) =
@@ -24,4 +27,16 @@ class AuthConfig @Inject constructor(
     override var userId: Long
         get() = getSharedPreferences(AUTH_DATA).getLong(KEY_USER_ID, 0L)
         set(value) = getSharedPreferences(AUTH_DATA).edit().putLong(KEY_USER_ID, value).apply()
+
+    override var userName: String
+        get() = getSharedPreferences(AUTH_DATA).getString(KEY_USER_NAME, "") ?: ""
+        set(value) = getSharedPreferences(AUTH_DATA).edit().putString(KEY_USER_NAME, value).apply()
+
+    override var userEmail: String
+        get() = getSharedPreferences(AUTH_DATA).getString(KEY_USER_EMAIL, "") ?: ""
+        set(value) = getSharedPreferences(AUTH_DATA).edit().putString(KEY_USER_EMAIL, value).apply()
+
+    override var userGender: Boolean?
+        get() = getSharedPreferences(AUTH_DATA).getBoolean(KEY_USER_GENDER, true)
+        set(value) = getSharedPreferences(AUTH_DATA).edit().putBoolean(KEY_USER_GENDER, value ?: true).apply()
 }

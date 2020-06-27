@@ -2,6 +2,7 @@ package com.vkr.vkrmobile.ui.fragment.company
 
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.vkr.vkrmobile.R
 import com.vkr.vkrmobile.di.AppScopes
@@ -59,6 +60,20 @@ class CompaniesFragment : BaseFragment(), CompaniesView {
                 setOnClickListener { presenter.onBackPressed() }
             }
         }
+
+        toolbarLayout.run {
+            setBackgroundColor(globalConfig.accentColor)
+        }
+
+        companiesRecyclerView.run {
+            layoutManager = LinearLayoutManager(context)
+            adapter = this@CompaniesFragment.adapter
+        }
+
+        companiesSwipeRefreshLayout.setOnRefreshListener {
+            adapter.clearData()
+            presenter.refresh()
+        }
     }
 
     override fun setData(data: List<CompanyWithBranchesResponse>) {
@@ -78,9 +93,15 @@ class CompaniesFragment : BaseFragment(), CompaniesView {
                 .addDelegate(ExpandableListCompaniesAdapterDelegate(globalConfig.configurationParams.companiesViewMode))
         }
 
+        fun clearData() {
+            items.clear()
+            notifyDataSetChanged()
+        }
+
         fun setData(data: List<CompanyWithBranchesResponse>) {
             items.clear()
             items.addAll(data)
+            notifyDataSetChanged()
         }
     }
 }
