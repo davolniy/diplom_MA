@@ -55,7 +55,7 @@ object ApiMethods {
         const val GetCompanyReviews = "Reviews/RequestTypes"
     }
     object Services {
-        const val GetServices = "Services/Reviews"
+        const val GetServices = "Services/Services"
         const val GetEmployees = "Services/Employees"
         const val MakeService = "Services/MakeService"
     }

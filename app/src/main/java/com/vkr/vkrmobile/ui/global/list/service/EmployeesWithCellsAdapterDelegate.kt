@@ -3,13 +3,11 @@ package com.vkr.vkrmobile.ui.global.list.service
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.vkr.vkrmobile.R
 import com.vkr.vkrmobile.model.data.net.response.employee.EmployeeWithTimeCellsResponse
-import com.vkr.vkrmobile.ui.fragment.service.CellDateAdapterDelegate
 import com.vkr.vkrmobile.ui.global.inflate
 import kotlinx.android.synthetic.main.employee_with_cells_item.view.*
 import java.util.*
@@ -56,7 +54,13 @@ class EmployeesWithCellsAdapterDelegate(
         }
 
         private inner class CellDateAdapter : ListDelegationAdapter<MutableList<Date>>() {
-            val cellDateAdapterDelegate = CellDateAdapterDelegate { employeeId, date -> onDateClickListener.invoke(employeeId, date) }
+            val cellDateAdapterDelegate =
+                CellDateAdapterDelegate { employeeId, date ->
+                    onDateClickListener.invoke(
+                        employeeId,
+                        date
+                    )
+                }
 
             init {
                 items = mutableListOf()

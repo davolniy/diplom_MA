@@ -15,6 +15,7 @@
     <string name="toolbarNewsTitle">Новости</string>
     <string name="toolbarProfileTitle">Профиль</string>
     <string name="toolbarCompaniesTitle">Компании</string>
+    <string name="toolbarServicesTitle">Мои записи</string>
     <string name="toolbarEmployeeSelectionTitle">Выберите сотрудника</string>
     <string name="toolbarChatsTitle">Чаты</string>
 
@@ -36,4 +37,14 @@
     <!--Product-->
     <string name="addToCart">В корзину</string>
     <string name="makeRequest">Записаться</string>
+
+    <!--Service-->
+    <string name="serviceIdPlaceholder">Услуга №%1$s</string>
+    <string name="serviceCompanyPlaceholder">Компания: %1$s</string>
+    <string name="serviceEmployeePlaceholder">Сотрудник: %1$s</string>
+    <string name="serviceEmployeePhoneNumberPlaceholder">Номер сотрудника: %1$s</string>
+    <string name="serviceCreateDatePlaceholder">Дата записи: %1$s</string>
+    <string name="serviceNamePlaceholder">Услуга: %1$s</string>
+    <string name="serviceDurationPlaceholder">Продолжительность: %1$s</string>
+    <string name="serviceCostPlaceholder">Цена: %1$s</string>
 </resources>

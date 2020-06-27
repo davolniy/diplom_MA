@@ -108,7 +108,7 @@ class MenuScreenConfig @Inject constructor(
                                 globalConfig.accentColor
                             )
                         },
-                        screen = NewsScreen()
+                        screen = ServicesScreen()
                     )
                 )
             }

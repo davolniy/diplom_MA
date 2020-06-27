@@ -8,6 +8,7 @@ object AppScopes {
     const val HOME_SCOPE = "home_scope"
     const val BOTTOM_MENU_SCOPE = "bottom_menu_scope"
     const val NEWS_SCOPE = "news_scope"
+    const val SERVICES_SCOPE = "services_scope"
     const val COMPANIES_SCOPE = "companies_scope"
     const val CHAT_SCOPE = "chat_scope"
     const val CHATS_SCOPE = "chats_scope"

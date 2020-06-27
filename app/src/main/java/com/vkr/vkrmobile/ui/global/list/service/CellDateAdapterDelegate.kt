@@ -1,4 +1,4 @@
-package com.vkr.vkrmobile.ui.fragment.service
+package com.vkr.vkrmobile.ui.global.list.service
 
 import android.view.View
 import android.view.ViewGroup
@@ -8,8 +8,6 @@ import com.vkr.vkrmobile.R
 import com.vkr.vkrmobile.ui.global.inflate
 import kotlinx.android.synthetic.main.date_cell_list_item.view.*
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.ZoneId
 import java.util.*
 
 class CellDateAdapterDelegate(
