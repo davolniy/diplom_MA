@@ -88,7 +88,7 @@ class EmployeeSelectionFragment : BaseFragment(), EmployeeSelectionView {
         if (globalConfig.configurationParams.menuViewMode == "Top") {
             navigationToolBarButton.run {
                 visibility = View.VISIBLE
-                setOnClickListener { presenter.onBackPressed() }
+                setOnClickListener { presenter.onNavigationClick() }
             }
         }
 

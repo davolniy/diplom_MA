@@ -7,6 +7,7 @@ import com.vkr.vkrmobile.model.navigation.RequestCodes
 import com.vkr.vkrmobile.model.system.ErrorHandler
 import com.vkr.vkrmobile.model.system.SystemMessageNotifier
 import com.vkr.vkrmobile.presentation.global.BasePresenter
+import com.vkr.vkrmobile.presentation.global.GlobalMenuController
 import com.vkr.vkrmobile.ui.screens.CompanyScreen
 import moxy.InjectViewState
 import java.text.DateFormat
@@ -20,6 +21,7 @@ class EmployeeSelectionPresenter @Inject constructor(
     private val serviceInteractor: ServiceInteractor,
     private val errorHandler: ErrorHandler,
     private val systemMessageNotifier: SystemMessageNotifier,
+    private val globalMenuController: GlobalMenuController,
     initParams: InitParams
 ) : BasePresenter<EmployeeSelectionView>() {
 
@@ -35,6 +37,10 @@ class EmployeeSelectionPresenter @Inject constructor(
 
     override fun onDestroy() {
         super.onDestroy()
+    }
+
+    fun onNavigationClick() {
+        globalMenuController.open()
     }
 
     override fun onFirstViewAttach() {

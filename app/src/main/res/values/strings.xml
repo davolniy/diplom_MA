@@ -17,6 +17,7 @@
     <string name="toolbarCompaniesTitle">Компании</string>
     <string name="toolbarCartsTitle">Корзина</string>
     <string name="toolbarServicesTitle">Мои записи</string>
+    <string name="toolbarOrdersTitle">Мои заказы</string>
     <string name="toolbarEmployeeSelectionTitle">Выберите сотрудника</string>
     <string name="toolbarChatsTitle">Чаты</string>
 

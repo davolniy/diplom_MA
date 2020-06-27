@@ -1,37 +1,33 @@
-package com.vkr.vkrmobile.presentation.company
+package com.vkr.vkrmobile.presentation.order
 
-import com.vkr.vkrmobile.model.interactor.AuthInteractor
-import com.vkr.vkrmobile.model.interactor.CompanyInteractor
+import com.vkr.vkrmobile.model.interactor.OrderInteractor
 import com.vkr.vkrmobile.model.navigation.AppRouter
 import com.vkr.vkrmobile.model.system.ErrorHandler
 import com.vkr.vkrmobile.model.system.SystemMessageNotifier
 import com.vkr.vkrmobile.presentation.global.BasePresenter
 import com.vkr.vkrmobile.presentation.global.GlobalMenuController
-import com.vkr.vkrmobile.ui.screens.CompanyScreen
 import moxy.InjectViewState
 import javax.inject.Inject
 
 @InjectViewState
-class CompaniesPresenter @Inject constructor(
+class OrdersPresenter @Inject constructor(
     private val router: AppRouter,
-    private val companyInteractor: CompanyInteractor,
+    private val orderInteractor: OrderInteractor,
     private val errorHandler: ErrorHandler,
     private val systemMessageNotifier: SystemMessageNotifier,
     private val globalMenuController: GlobalMenuController
-) : BasePresenter<CompaniesView>() {
-
+    ) : BasePresenter<OrdersView>() {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        loadCompaniesWithBranches()
+        refresh()
+    }
+
+    fun onBackPressed() {
+        router.exit()
     }
 
     fun onNavigationClick() {
         globalMenuController.open()
-    }
-
-
-    fun onBackPressed() {
-        router.exit()
     }
 
     override fun onDestroy() {
@@ -39,15 +35,11 @@ class CompaniesPresenter @Inject constructor(
     }
 
     fun refresh() {
-        loadCompaniesWithBranches()
+        loadOrders()
     }
 
-    fun onCompanyClick(companyId: Long) {
-        router.navigateTo(CompanyScreen(companyId))
-    }
-
-    fun loadCompaniesWithBranches() = companyInteractor
-        .getCompaniesWithBranches()
+    fun loadOrders() = orderInteractor
+        .getOrders()
         .doOnSubscribe { viewState.showProgress(true) }
         .doOnTerminate { viewState.showProgress(false) }
         .subscribe(

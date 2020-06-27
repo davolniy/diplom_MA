@@ -17,4 +17,5 @@ object AppScopes {
     const val CARTS_SCOPE = "carts_scope"
     const val PROFILE_SCOPE = "profile_scope"
     const val EDIT_PROFILE_SCOPE = "edit_profile_scope"
+    const val ORDERS_SCOPE = "orders_scope"
 }

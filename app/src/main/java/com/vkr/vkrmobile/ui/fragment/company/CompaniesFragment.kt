@@ -58,7 +58,7 @@ class CompaniesFragment : BaseFragment(), CompaniesView {
         if (globalConfig.configurationParams.menuViewMode == "Top") {
             navigationToolBarButton.run {
                 visibility = View.VISIBLE
-                setOnClickListener { presenter.onBackPressed() }
+                setOnClickListener { presenter.onNavigationClick() }
             }
         }
 

@@ -34,6 +34,8 @@ class BottomMenuPresenter @Inject constructor(
     }
 
     fun onMenuRowClick(screen: SupportAppScreen) {
-        router.navigateTo(screen)
+        authInteractor.invokeWithAuthCheck(screen) {
+            router.navigateTo(screen)
+        }
     }
 }

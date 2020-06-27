@@ -7,7 +7,7 @@ import com.vkr.vkrmobile.model.data.auth.SignedIn
 import com.vkr.vkrmobile.model.navigation.AppRouter
 import com.vkr.vkrmobile.model.navigation.RequestCodes
 import com.vkr.vkrmobile.model.repository.AuthRepository
-import com.vkr.vkrmobile.ui.screens.AuthScreen
+import com.vkr.vkrmobile.ui.screens.*
 import io.reactivex.rxjava3.core.Observable
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 import javax.inject.Inject
@@ -22,11 +22,19 @@ class AuthInteractor @Inject constructor(
     val isAuthRequired get() = globalConfig.configurationParams.authRequired
 
     fun invokeWithAuthCheck(screen: SupportAppScreen, action: () -> Unit) {
-        if (isSignedIn) {
-            action.invoke()
-        } else {
-            router.navigateTo(AuthScreen())
+        if (screen is CartsScreen
+            || screen is ChatsScreen
+            || screen is EditProfileScreen
+            || screen is EmployeeSelectionScreen
+            || screen is OrdersScreen
+            || screen is ServicesScreen) {
+            if (isSignedIn) {
+                action.invoke()
+            } else {
+                router.navigateTo(AuthScreen())
+            }
         }
+
     }
 
     fun invokeWithAuthCheck(action: () -> Unit) {

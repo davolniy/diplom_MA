@@ -49,20 +49,15 @@ class AuthFragment : BaseFragment(), AuthView {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        if (!globalConfig.configurationParams.authRequired) {
-            toolbar.run {
+        if (globalConfig.configurationParams.menuViewMode == "Top") {
+            navigationToolBarButton.run {
                 visibility = View.VISIBLE
-                val iconDrawable = resources.getDrawable(R.drawable.ic_arrow_left, context?.theme)
-                iconDrawable.setTint(ContextCompat.getColor(context, R.color.primaryWhite))
-                navigationIcon = iconDrawable
-                setNavigationOnClickListener {
-                    presenter.onBackPressed()
-                }
-                setBackgroundColor(globalConfig.accentColor)
-                setTitle(R.string.authTitle)
+                setOnClickListener { presenter.onNavigationClick() }
             }
-        } else {
-            toolbar.visibility = View.GONE
+        }
+
+        toolbarLayout.run {
+            setBackgroundColor(globalConfig.accentColor)
         }
 
         phoneNumberEditTextLayout.boxStrokeColor = globalConfig.accentColor

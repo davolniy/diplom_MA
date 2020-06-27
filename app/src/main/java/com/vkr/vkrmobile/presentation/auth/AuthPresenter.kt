@@ -6,6 +6,7 @@ import com.vkr.vkrmobile.model.navigation.AppRouter
 import com.vkr.vkrmobile.model.system.ErrorHandler
 import com.vkr.vkrmobile.model.system.SystemMessageNotifier
 import com.vkr.vkrmobile.presentation.global.BasePresenter
+import com.vkr.vkrmobile.presentation.global.GlobalMenuController
 import moxy.InjectViewState
 import javax.inject.Inject
 
@@ -15,8 +16,14 @@ class AuthPresenter @Inject constructor(
     private val authInteractor: AuthInteractor,
     private val router: AppRouter,
     private val errorHandler: ErrorHandler,
-    private val systemMessageNotifier: SystemMessageNotifier
+    private val systemMessageNotifier: SystemMessageNotifier,
+    private val globalMenuController: GlobalMenuController
 ) : BasePresenter<AuthView>() {
+
+    fun onNavigationClick() {
+        globalMenuController.open()
+    }
+
     fun onBackPressed() {
         router.exit()
     }

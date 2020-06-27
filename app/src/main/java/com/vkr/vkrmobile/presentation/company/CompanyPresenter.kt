@@ -7,6 +7,7 @@ import com.vkr.vkrmobile.model.navigation.RequestCodes
 import com.vkr.vkrmobile.model.system.ErrorHandler
 import com.vkr.vkrmobile.model.system.SystemMessageNotifier
 import com.vkr.vkrmobile.presentation.global.BasePresenter
+import com.vkr.vkrmobile.presentation.global.GlobalMenuController
 import com.vkr.vkrmobile.ui.screens.EmployeeSelectionScreen
 import moxy.InjectViewState
 import java.util.*
@@ -21,6 +22,7 @@ class CompanyPresenter @Inject constructor(
     private val newsInteractor: NewsInteractor,
     private val errorHandler: ErrorHandler,
     private val systemMessageNotifier: SystemMessageNotifier,
+    private val globalMenuController: GlobalMenuController,
     initParams: InitParams
 ) : BasePresenter<CompanyView>() {
 
@@ -32,6 +34,10 @@ class CompanyPresenter @Inject constructor(
     )
 
     val companyId = initParams.companyId
+
+    fun onNavigationClick() {
+        globalMenuController.open()
+    }
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

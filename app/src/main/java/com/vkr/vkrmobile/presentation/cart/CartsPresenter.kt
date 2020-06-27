@@ -6,6 +6,7 @@ import com.vkr.vkrmobile.model.navigation.AppRouter
 import com.vkr.vkrmobile.model.system.ErrorHandler
 import com.vkr.vkrmobile.model.system.SystemMessageNotifier
 import com.vkr.vkrmobile.presentation.global.BasePresenter
+import com.vkr.vkrmobile.presentation.global.GlobalMenuController
 import moxy.InjectViewState
 import javax.inject.Inject
 
@@ -15,7 +16,8 @@ class CartsPresenter @Inject constructor(
     private val cartInteractor: CartInteractor,
     private val orderInteractor: OrderInteractor,
     private val errorHandler: ErrorHandler,
-    private val systemMessageNotifier: SystemMessageNotifier
+    private val systemMessageNotifier: SystemMessageNotifier,
+    private val globalMenuController: GlobalMenuController
 ) : BasePresenter<CartsView>() {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -24,6 +26,10 @@ class CartsPresenter @Inject constructor(
 
     fun onBackPressed() {
         router.exit()
+    }
+
+    fun onNavigationClick() {
+        globalMenuController.open()
     }
 
     override fun onDestroy() {

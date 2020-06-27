@@ -31,8 +31,10 @@ class ProfileMenuPresenter @Inject constructor(
     }
 
     fun onMenuRowClick(screen: SupportAppScreen) {
-        globalMenuController.close()
-        router.navigateTo(screen)
+        authInteractor.invokeWithAuthCheck(screen) {
+            globalMenuController.close()
+            router.navigateTo(screen)
+        }
     }
 
     fun logout() {

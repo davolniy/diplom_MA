@@ -1,4 +1,4 @@
-package com.vkr.vkrmobile.ui.fragment.service
+package com.vkr.vkrmobile.ui.fragment.order
 
 import android.os.Bundle
 import android.view.View
@@ -7,47 +7,47 @@ import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.vkr.vkrmobile.R
 import com.vkr.vkrmobile.di.AppScopes
 import com.vkr.vkrmobile.domain.config.GlobalConfig
-import com.vkr.vkrmobile.model.data.net.response.service.ServiceResponse
-import com.vkr.vkrmobile.presentation.service.ServicesPresenter
-import com.vkr.vkrmobile.presentation.service.ServicesView
+import com.vkr.vkrmobile.model.data.net.response.order.OrderResponse
+import com.vkr.vkrmobile.presentation.order.OrdersPresenter
+import com.vkr.vkrmobile.presentation.order.OrdersView
 import com.vkr.vkrmobile.ui.fragment.global.BaseFragment
-import com.vkr.vkrmobile.ui.global.list.service.ListServicesAdapterDelegate
-import kotlinx.android.synthetic.main.services_fragment.*
+import com.vkr.vkrmobile.ui.global.list.cart.OrderListAdapterDelegate
+import kotlinx.android.synthetic.main.orders_fragment.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import toothpick.Toothpick
 import javax.inject.Inject
 
-class ServicesFragment : BaseFragment(), ServicesView {
+class OrdersFragment : BaseFragment(), OrdersView {
     override val layoutRes: Int
-        get() = R.layout.services_fragment
+        get() = R.layout.orders_fragment
 
     @InjectPresenter
-    lateinit var presenter: ServicesPresenter
+    lateinit var presenter: OrdersPresenter
 
     @Inject
     lateinit var globalConfig: GlobalConfig
 
-    private val adapter by lazy { ServicesAdapter() }
+    private val adapter by lazy { OrdersAdapter() }
 
     @ProvidePresenter
-    fun providePresenter(): ServicesPresenter = Toothpick
-        .openScopes(AppScopes.MAIN_ACTIVITY_SCOPE, AppScopes.NEWS_SCOPE)
-        .getInstance(ServicesPresenter::class.java)
+    fun providePresenter(): OrdersPresenter = Toothpick
+        .openScopes(AppScopes.MAIN_ACTIVITY_SCOPE, AppScopes.ORDERS_SCOPE)
+        .getInstance(OrdersPresenter::class.java)
 
     override fun onBackPressed() {
         presenter.onBackPressed()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Toothpick.openScopes(AppScopes.MAIN_ACTIVITY_SCOPE, AppScopes.NEWS_SCOPE)
+        Toothpick.openScopes(AppScopes.MAIN_ACTIVITY_SCOPE, AppScopes.ORDERS_SCOPE)
             .let { Toothpick.inject(this, it) }
         super.onCreate(savedInstanceState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Toothpick.closeScope(AppScopes.AUTH_SCOPE)
+        Toothpick.closeScope(AppScopes.ORDERS_SCOPE)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -64,30 +64,30 @@ class ServicesFragment : BaseFragment(), ServicesView {
             setBackgroundColor(globalConfig.accentColor)
         }
 
-        servicesRecyclerView.run {
+        ordersRecyclerView.run {
             layoutManager = LinearLayoutManager(context)
-            adapter = this@ServicesFragment.adapter
+            adapter = this@OrdersFragment.adapter
         }
 
-        servicesSwipeRefreshLayout.setOnRefreshListener {
+        ordersSwipeRefreshLayout.setOnRefreshListener {
             adapter.clearData()
             presenter.refresh()
         }
     }
 
     override fun showProgress(show: Boolean) {
-        servicesSwipeRefreshLayout.isRefreshing = show
+        ordersSwipeRefreshLayout.isRefreshing = show
     }
 
-    override fun setData(data: List<ServiceResponse>) {
+    override fun setData(data: List<OrderResponse>) {
         adapter.setData(data)
     }
 
-    private inner class ServicesAdapter() : ListDelegationAdapter<MutableList<ServiceResponse>>() {
+    private inner class OrdersAdapter() : ListDelegationAdapter<MutableList<OrderResponse>>() {
         init {
             items = mutableListOf()
             delegatesManager
-                .addDelegate(ListServicesAdapterDelegate())
+                .addDelegate(OrderListAdapterDelegate())
         }
 
         fun clearData() {
@@ -95,7 +95,7 @@ class ServicesFragment : BaseFragment(), ServicesView {
             notifyDataSetChanged()
         }
 
-        fun setData(data: List<ServiceResponse>) {
+        fun setData(data: List<OrderResponse>) {
             items.clear()
             items.addAll(data)
             notifyDataSetChanged()
